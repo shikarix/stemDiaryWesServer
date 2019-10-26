@@ -15,21 +15,18 @@ import java.util.Map;
 public class GreetingController {
     @Autowired
     private PupilReposutory pupilRepository;
-    int dollars = 100;
-    @RequestMapping(value="/greeting", method=RequestMethod.GET)
+    @GetMapping(value="/")
     public String greetingForm(Model model) {
-        model.addAttribute("greeting", new Greeting());
         return "greeting";
     }
 
-    @RequestMapping(value="/greeting", method=RequestMethod.POST)
+    @PostMapping(value="/greeting")
     public String greetingSubmit(HashMap<String, Object> model, @RequestParam String login, @RequestParam String password) {
         Pupil pupil = new Pupil(login, password);
         pupilRepository.save(pupil);
         Iterable<Pupil> pupils = pupilRepository.findAll();
         System.out.println(pupils);
         model.put("pupils", pupils);
-        model.put("dollars", dollars);
         List filterPupils = filter(login, model);
         for (Pupil pupilFiltered:pupils) {
             if (pupilFiltered.getPassword().equals(password)){
