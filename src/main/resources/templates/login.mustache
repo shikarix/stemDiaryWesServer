@@ -4,12 +4,21 @@
     <title>Spring Security Example </title>
 </head>
 <body>
-Login page
+<img src="https://sun9-8.userapi.com/c851224/v851224158/194606/pW5Vv5hvKX4.jpg" height="25%" width="25%"
+     style="display: block; margin-left: auto; margin-right: auto; position: relative;">
 <form action="/login" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
-    <div><input type="submit" value="Sign In"/></div>
+    <label style="position:relative; left: 44%; font-family: 'Lato', sans-serif;"> User Name : </label>
+    <br>
+    <input style="border-width: 0px 0px 1px 0px; position: relative; border-color: silver; outline:none; left: 44%"
+           type="text" name="username"/>
+    <br>
+    <label style="position:relative; left: 44%; font-family: 'Lato', sans-serif;"> Password: </label>
+    <br>
+    <input style="border-width: 0px 0px 1px 0px; position: relative; border-color: silver; outline:none; left: 44%"
+           type="password" name="password"/>
+    <br>
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+    <div><input type="submit" value="Sign In" style="position:relative; left: 48%; font-family: 'Lato', sans-serif;"/></div>
 </form>
 </body>
 </html>

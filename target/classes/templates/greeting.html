@@ -17,9 +17,10 @@
 </style>
 <img src="https://sun9-8.userapi.com/c851224/v851224158/194606/pW5Vv5hvKX4.jpg" height="25%" width="25%"
      class="center">
+<!--/*@thymesVar id="Pupil" type="hello.domain.Pupil"*/-->
 <form action="#" th:action="@{/greeting}" th:object="${Pupil}" method="post">
-    <p style="position:relative; left: 44%; font-family: 'Lato', sans-serif;">Логин: </p><p style="position:relative; top: -2 px; left: 44%;"><input style="border-width: 0px 0px 1px 0px; position: relative; bottom: 10px; border-color: silver; outline:none;" type="text" name="login" /></p>
-    <p style="position:relative; left: 44%; font-family: 'Lato', sans-serif;">Пароль: </p><p style="position:relative; top: -2 px; left: 44%;"><input style="border-width: 0px 0px 1px 0px; position: relative; bottom: 10px; border-color: silver; outline:none;" type="text" name="password"/></p>
+    <p style="position:relative; left: 44%; font-family: 'Lato', sans-serif;">Логин: </p><p style="position:relative; top: -2px; left: 44%;"><input style="border-width: 0px 0px 1px 0px; position: relative; bottom: 10px; border-color: silver; outline:none;" type="text" name="login" /></p>
+    <p style="position:relative; left: 44%; font-family: 'Lato', sans-serif;">Пароль: </p><p style="position:relative; top: -2px; left: 44%;"><input style="border-width: 0px 0px 1px 0px; position: relative; bottom: 10px; border-color: silver; outline:none;" type="text" name="password"/></p>
     <input type="submit" value="Войти" style="position: relative; left: 55%; width: 5em; height: 2em"/>
 </form>
 </body>

@@ -15,29 +15,20 @@ import java.util.Map;
 public class GreetingController {
     @Autowired
     private PupilReposutory pupilRepository;
-    @GetMapping(value="/")
+
+    @GetMapping(value = "/")
     public String greetingForm(Model model) {
-        return "greeting";
-    }
-
-    @PostMapping(value="/greeting")
-    public String greetingSubmit(HashMap<String, Object> model, @RequestParam String login, @RequestParam String password) {
         return "profile";
     }
 
-    @GetMapping(value = "/profile")
-    public String profile(Model model){
-        return "profile";
-    }
-
-    @PostMapping(path = "/profile")
-    public String add(Model model){
+    @RequestMapping(path = "/profile")
+    public String add(Model model) {
         Iterable<Pupil> pupils = pupilRepository.findAll();
         model.addAttribute("pupils", pupils);
         return "profile";
     }
 
-    public List filter(@RequestParam String login, HashMap<String, Object> model){
+    public List filter(@RequestParam String login, HashMap<String, Object> model) {
         List pupils = pupilRepository.findByLogin(login);
         model.put("pupils", pupils);
         return pupils;
