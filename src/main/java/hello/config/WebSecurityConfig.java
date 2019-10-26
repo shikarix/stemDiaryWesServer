@@ -38,9 +38,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    @Bean
-    protected UserDetailsService userDetailsService(){
-        UserDetails user = User.withDefaultPasswordEncoder().username("vadim.eremin.2005@mail.ru").password("123").roles("USER").build();
-        return new InMemoryUserDetailsManager(user);
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(NoOpPasswordEncoder.getInstance()).usersByUsernameQuery(
+                "select login, password, active from usr where login=?"
+        ).authoritiesByUsernameQuery(
+                "select u.login, ur.roles from usr u inner join user_role ur on u.id = ur.user_id where u.login=?");
     }
 }

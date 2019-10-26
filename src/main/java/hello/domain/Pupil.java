@@ -1,11 +1,10 @@
 package hello.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
+@Table(name = "usr")
 public class Pupil {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -15,6 +14,54 @@ public class Pupil {
     private String password;
     private String course[];
     private int stemCoins = 0;
+    private String name;
+    private String surname;
+    private boolean active;
+
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public int getStemCoins() {
+        return stemCoins;
+    }
+
+    public void setStemCoins(int stemCoins) {
+        this.stemCoins = stemCoins;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
 
     public Pupil() {
 

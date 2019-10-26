@@ -22,22 +22,7 @@ public class GreetingController {
 
     @PostMapping(value="/greeting")
     public String greetingSubmit(HashMap<String, Object> model, @RequestParam String login, @RequestParam String password) {
-        Pupil pupil = new Pupil(login, password);
-        pupilRepository.save(pupil);
-        Iterable<Pupil> pupils = pupilRepository.findAll();
-        System.out.println(pupils);
-        model.put("pupils", pupils);
-        List filterPupils = filter(login, model);
-        for (Pupil pupilFiltered:pupils) {
-            if (pupilFiltered.getPassword().equals(password)){
-                model.put("pupils", pupilFiltered);
-                return "profile";
-            }
-            else {
-                return "";
-            }
-        }
-        return "";
+        return "profile";
     }
 
     @GetMapping(value = "/profile")
