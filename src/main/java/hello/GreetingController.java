@@ -18,6 +18,7 @@ public class GreetingController {
 
     @GetMapping(value = "/")
     public String greetingForm(Model model) {
+        add(model);
         return "profile";
     }
 
