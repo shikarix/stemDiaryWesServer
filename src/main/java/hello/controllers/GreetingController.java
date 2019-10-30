@@ -1,4 +1,4 @@
-package hello;
+package hello.controllers;
 
 import hello.domain.Pupil;
 import hello.repos.PupilReposutory;
@@ -18,8 +18,7 @@ public class GreetingController {
 
     @GetMapping(value = "/")
     public String greetingForm(Model model) {
-        add(model);
-        return "profile";
+        return add(model);
     }
 
     @RequestMapping(path = "/profile")
