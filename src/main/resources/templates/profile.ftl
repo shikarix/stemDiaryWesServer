@@ -3,7 +3,7 @@
     <div>
         <form action="/logout" method="post">
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-            <input type="submit" value="Sign Out"/>
+            <input type="submit" value="Sign Out" style="display: block; position: relative; left: 94%"/>
         </form>
     </div>
     <script>
