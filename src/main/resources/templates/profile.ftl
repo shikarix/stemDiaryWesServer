@@ -12,10 +12,7 @@
         };
         var a = function () {
             var abc = document.getElementById('al');
-            for (var i = 0; i < 100; i++) {
-                setTimeout(abc.style.opacity = 100-i+'%',100);
-            }
-            document.body.removeChild(abc);
+            setTimeout(document.body.removeChild(abc), 1000);
         };
     </script>
     <div style="position: relative; width: 50%; left: 25%" id="al">
@@ -29,7 +26,13 @@
          style="display: block; margin-left: auto; margin-right: auto; position: relative;">
     <div style="text-align:center; position: relative; top: 10px; left: 1%;">
         <#list pupils as pupils>
-            ${pupils.name}
+            <span>${pupils.name+" "}</span>
+            <span>${pupils.surname+" "}</span>
+            <#if pupils.active == true>
+                is active
+            <#else>
+                is not active
+            </#if>
         <#else>
         </#list>
     </div>

@@ -16,6 +16,8 @@ public class GreetingController {
     @Autowired
     private PupilReposutory pupilRepository;
 
+    String login;
+
     @GetMapping(value = "/")
     public String greetingForm(Model model) {
         return add(model);
@@ -33,4 +35,5 @@ public class GreetingController {
         model.put("pupils", pupils);
         return pupils;
     }
+
 }
