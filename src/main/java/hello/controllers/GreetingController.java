@@ -3,6 +3,7 @@ package hello.controllers;
 import hello.domain.Pupil;
 import hello.repos.PupilReposutory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +17,6 @@ public class GreetingController {
     @Autowired
     private PupilReposutory pupilRepository;
 
-    String login;
-
     @GetMapping(value = "/")
     public String greetingForm(Model model) {
         return add(model);
@@ -25,7 +24,7 @@ public class GreetingController {
 
     @RequestMapping(path = "/profile")
     public String add(Model model) {
-        Iterable<Pupil> pupils = pupilRepository.findAll();
+        Iterable<Pupil> pupils = pupilRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         model.addAttribute("pupils", pupils);
         return "profile";
     }
