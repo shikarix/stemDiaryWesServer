@@ -1,10 +1,17 @@
 <#import "parts/common.ftl" as pages>
 <@pages.page>
-    <div>
-        <form action="/logout" method="post">
-            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-            <input type="submit" value="Sign Out" style="display: block; position: relative; left: 94%"/>
-        </form>
+    <div class="navbar navbar-light bg-light">
+        <div class="navbar-brand"><img
+                    src="https://static.tildacdn.com/tild3865-3431-4934-a462-636139616135/noroot.png"></div>
+        <div class="navbar-text">
+            <form class="form-inline my-2 my-lg-0" action="/logout" method="post">
+                <button type="submit" class="btn btn-outline-success">Выйти</button>
+                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+            </form>
+        </div>
+        <div class="navbar-text">
+            <a href="#">Профиль</a>
+        </div>
     </div>
     <script>
         window.onload = function () {
@@ -36,4 +43,8 @@
         <#else>
         </#list>
     </div>
+    <br>
+
+
+
 </@pages.page>
