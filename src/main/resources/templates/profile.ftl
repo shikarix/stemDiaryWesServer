@@ -1,18 +1,7 @@
 <#import "parts/common.ftl" as pages>
+<#import "parts/navbar.ftl" as navbar>
 <@pages.page>
-    <div class="navbar navbar-light bg-light">
-        <div class="navbar-brand"><img
-                    src="https://static.tildacdn.com/tild3865-3431-4934-a462-636139616135/noroot.png"></div>
-        <div class="navbar-text">
-            <form class="form-inline my-2 my-lg-0" action="/logout" method="post">
-                <button type="submit" class="btn btn-outline-success">Выйти</button>
-                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-            </form>
-        </div>
-        <div class="navbar-text">
-            <a href="#">Профиль</a>
-        </div>
-    </div>
+    <@navbar.navbar></@navbar.navbar>
     <script>
         window.onload = function () {
             setTimeout(a, 1000);
@@ -29,8 +18,6 @@
             </div>
         </div>
     </div>
-    <img src="https://sun9-8.userapi.com/c851224/v851224158/194606/pW5Vv5hvKX4.jpg" height="25%" width="25%"
-         style="display: block; margin-left: auto; margin-right: auto; position: relative;">
     <div style="text-align:center; position: relative; top: 10px; left: 1%;">
         <#list pupils as pupils>
             <span>${pupils.name+" "}</span>
@@ -40,6 +27,11 @@
             <#else>
                 is not active
             </#if>
+            <span>
+                <#list pupils.roles as roles>
+                    <span>${roles}<#sep>,</span>
+                </#list>
+            </span>
         <#else>
         </#list>
     </div>
