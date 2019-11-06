@@ -29,37 +29,52 @@ public class GreetingController {
     }
 
     @PostMapping(path = "/profile")
-    public String editMe(@RequestParam String nickname, @RequestParam String surname, @RequestParam String oldPassword, @RequestParam String newPassword, @RequestParam String againPassword, Model model){
+    public String editMe(@RequestParam String nickname, @RequestParam String surname, @RequestParam String oldPassword, @RequestParam String newPassword, @RequestParam String againPassword, Model model) {
         Iterable<Pupil> pupils = pupilRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         ArrayList<Pupil> pupil = new ArrayList<>();
         pupils.forEach(pupil::add);
-        pupil.get(0).setName(nickname);
-        pupil.get(0).setSurname(surname);
-        Pupil need = pupil.get(0);
-        if (!oldPassword.equals(" ")&&!oldPassword.equals("")){
-            if (oldPassword.equals(need.getPassword())){
-                if (!newPassword.equals("")){
-                    if (newPassword.equals(againPassword)){
-                        need.setPassword(againPassword);
-                        model.addAttribute("warn","Вы изменили пароль!");
-                    }
-                    else {
-                        model.addAttribute("warn", "Новые пароли не совпадают!");
-                    }
-                }
-                else {
-                    model.addAttribute("warn", "Если хотите изменить пароль, то введите новый пароль!");
-                }
-            }
-            else {
-                model.addAttribute("warn", "Введите свой старый пароль!");
-            }
+        if (!nickname.equals(""))
+            pupil.get(0).setName(nickname);
+        else {
+            model.addAttribute("warn", "Имя не может быть пустым!");
+            return add(model);
         }
+        if (!surname.equals(""))
+            pupil.get(0).setSurname(surname);
+        else {
+            model.addAttribute("warn", "Фамилия не может быть пустой!");
+            return add(model);
+        }
+        Pupil need = pupil.get(0);
+        if (oldPassword != null)
+            if (!oldPassword.equals(" ") && !oldPassword.equals("")) {
+                if (oldPassword.equals(need.getPassword())) {
+                    if (newPassword != null)
+                        if (!newPassword.equals("")) {
+                            if (againPassword != null)
+                                if (newPassword.equals(againPassword)) {
+                                    need.setPassword(againPassword);
+                                    model.addAttribute("warn", "Вы изменили пароль!");
+                                    return add(model);
+                                } else {
+                                    model.addAttribute("warn", "Новые пароли не совпадают!");
+                                    return add(model);
+                                }
+                        } else {
+                            model.addAttribute("warn", "Если хотите изменить пароль, то введите новый пароль!");
+                            return add(model);
+                        }
+                } else {
+                    model.addAttribute("warn", "Введите свой старый пароль!");
+                    return add(model);
+                }
+            }
         pupilRepository.save(pupil.get(0));
         return add(model);
     }
+
     @GetMapping(path = "/profile")
-    public String profile(Model model){
+    public String profile(Model model) {
         return add(model);
     }
 
@@ -72,6 +87,7 @@ public class GreetingController {
         model.addAttribute("was", pupil.get(0).isActive());
         pupil.get(0).setActive(true);
         pupilRepository.save(pupil.get(0));
+        if (model.asMap().get("warn") == null || model.asMap().get("warn").equals(""))model.addAttribute("warn", "");
         return "editMe";
     }
 }
