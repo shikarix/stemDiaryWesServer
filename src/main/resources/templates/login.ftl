@@ -19,6 +19,6 @@
     </div>
     <br>
     <div><input type="submit" value="Sign In" style="position:relative; left: 49%; font-family:sans-serif;"
-                href="/profile"/></div>
+                href="https://oauth.vk.com/authorize?client_id=7193860&redirect_uri="/></div>
 </form>
 </@pages.page>
