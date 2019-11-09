@@ -90,9 +90,4 @@ public class GreetingController {
         if (model.asMap().get("warn") == null || model.asMap().get("warn").equals(""))model.addAttribute("warn", "");
         return "editMe";
     }
-
-    @RequestMapping(path = "/prob")
-    public String prob(Model model, @RequestParam String code){
-        return add(model);
-    }
 }

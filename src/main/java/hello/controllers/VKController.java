@@ -20,7 +20,7 @@ import java.util.List;
 @Controller
 public class VKController {
     @RequestMapping(path = "/news")
-    public String showNews(Model model) throws Exception{
+    public String showNews(Model model) throws Exception {
         TransportClient transportClient = HttpTransportClient.getInstance();
         VkApiClient vk = new VkApiClient(transportClient);
 
@@ -28,9 +28,16 @@ public class VKController {
         GetResponse response = vk.wall().get(user).ownerId(-113376999).execute();
         ArrayList<String> texts = new ArrayList<>();
         for (WallPostFull post : response.getItems()) {
-            texts.add(post.getText());
+            String text = post.getText();
+            String paragraphData[] = text.split("\n");
+            String resultText = "";
+            for (String paragraph : paragraphData){
+                resultText+=(paragraph+"<br>");
+            }
+            texts.add(resultText);
         }
         model.addAttribute("text", texts);
+
         return "news";
     }
 }
