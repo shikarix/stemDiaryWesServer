@@ -6,7 +6,7 @@
             </a>
         </div>
         <div class="navbar-text">
-            <a href="#">
+            <a href="/news">
                 Новости
             </a>
         </div>

@@ -6,8 +6,12 @@ import com.vk.api.sdk.client.actors.ServiceActor;
 import com.vk.api.sdk.exceptions.ApiException;
 import com.vk.api.sdk.exceptions.ClientException;
 import com.vk.api.sdk.httpclient.HttpTransportClient;
+import com.vk.api.sdk.objects.photos.Photo;
+import com.vk.api.sdk.objects.video.Video;
 import com.vk.api.sdk.objects.wall.WallPostFull;
+import com.vk.api.sdk.objects.wall.WallpostAttachment;
 import com.vk.api.sdk.objects.wall.responses.GetResponse;
+import hello.domain.Post;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,19 +30,41 @@ public class VKController {
 
         ServiceActor user = new ServiceActor(7193860, "tqCMcR6AEVmEfAAeIx3o", "723d3fac723d3fac723d3fac277250faa87723d723d3fac2f83444d86eda24ee779618a");
         GetResponse response = vk.wall().get(user).ownerId(-113376999).execute();
-        ArrayList<String> texts = new ArrayList<>();
+        ArrayList<Post> posts = new ArrayList<>();
         for (WallPostFull post : response.getItems()) {
             String text = post.getText();
+            Post newPost = new Post();
+            for (WallpostAttachment attachment:post.getAttachments()) {
+                if (attachment.getPhoto() != null){
+                    newPost.setSrcToImage(attachment.getPhoto().getPhoto130());
+                }
+                else {
+                    if (attachment.getVideo() != null){
+                        newPost.setSrcToImage(attachment.getVideo().getPhoto130());
+                    }
+                    else newPost.setSrcToImage("https://sun9-16.userapi.com/c851224/v851224158/194606/pW5Vv5hvKX4.jpg");
+
+                }
+            }
             String paragraphData[] = text.split("\n");
             String resultText = "";
             for (String paragraph : paragraphData){
                 resultText+=(paragraph+"<br>");
             }
-            texts.add(resultText);
+            String words[] = text.split(" ");
+            String preview = "";
+            for (int i = 0; i < (words.length > 10 ? 10 : words.length); i++) {
+                preview += (words[i]+" ");
+            }
+            preview += words.length>10?"...<br> <a href=\"https://vk.com/coistem?w=wall-113376999_"+post.getId()+"\" style=\"color:black;\">Подробнее</a>":"";
+            newPost.setText(preview);
+            posts.add(newPost);
         }
-        model.addAttribute("text", texts);
+        model.addAttribute("posts", posts);
 
         return "news";
     }
 }
+
+//w=wall-113376999_id
 

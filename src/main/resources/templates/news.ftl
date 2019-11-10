@@ -6,9 +6,8 @@
     <@navbar.navbar></@navbar.navbar>
     <div style="width: 75%; position: relative; left: 12.5%">
         <div class="card-columns">
-            <#list text as text>
-                <@card.card  "${text}" "2 дня назад" "https://sun9-16.userapi.com/c851224/v851224158/194606/pW5Vv5hvKX4.jpg">
-                </@card.card>
+            <#list posts as post>
+                <@card.card  "${post.text}" "2 дня назад" "${post.srcToImage}"></@card.card>
             </#list>
         </div>
     </div>

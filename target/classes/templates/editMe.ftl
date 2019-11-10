@@ -17,12 +17,12 @@
                 <#list pupils as pupils>
                     <label>Имя:</label>
                     <br>
-                    <input style="border-width: 0px 0px 1px 0px; position: relative; border-color: silver; outline:none; width: 28%;"
+                    <input disabled style="border-width: 0px 0px 1px 0px; position: relative; border-color: silver; outline:none; width: 28%; background-color: white"
                            type="text" value="${pupils.name}" name="nickname">
                     <br>
                     <label>Фамилия:</label>
                     <br>
-                    <input style="border-width: 0px 0px 1px 0px; position: relative; border-color: silver; outline:none; width: 28%;"
+                    <input disabled style="border-width: 0px 0px 1px 0px; position: relative; border-color: silver; outline:none; width: 28%; background-color: white"
                            type="text" value="${pupils.surname}" name="surname">
                     <br>
                     <label>Старый пароль:</label>
