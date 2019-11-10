@@ -1,5 +1,5 @@
 <#import "parts/common.ftl" as pages>
-<@pages.page>
+<@pages.page "Редактирование">
     <img src="https://sun9-8.userapi.com/c851224/v851224158/194606/pW5Vv5hvKX4.jpg" height="25%" width="25%" id="pic"
          style="display: block; margin-left: auto; margin-right: auto; position: relative;">
     <form action="/pupils" method="post">

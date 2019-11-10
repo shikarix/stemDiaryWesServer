@@ -7,7 +7,7 @@ import java.util.Set;
 @Table(name = "usr")
 public class Pupil {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     private String login;

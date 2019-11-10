@@ -2,7 +2,7 @@
 <#import "parts/navbar.ftl" as navbar>
 <#import "parts/alertTab.ftl" as alert>
 <#import "parts/card.ftl" as card>
-<@page.page>
+<@page.page "Новости">
     <@navbar.navbar></@navbar.navbar>
     <div style="width: 75%; position: relative; left: 12.5%">
         <div class="card-columns">

@@ -1,7 +1,7 @@
 <#import "parts/common.ftl" as pages>
 <#import "parts/navbar.ftl" as navbar>
 <#import "parts/alertTab.ftl" as al>
-<@pages.page>
+<@pages.page "Профиль">
     <@navbar.navbar></@navbar.navbar>
     <#if was!=true>
         <@al.alert "alert alert-success alert-dismissible fade show" "Вы успешно вошли"></@al.alert>

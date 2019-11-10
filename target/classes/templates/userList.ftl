@@ -1,5 +1,5 @@
 <#import "parts/common.ftl" as pages>
-<@pages.page>
+<@pages.page "Пользователи">
     <table class="table table-striped table-hover">
         <thead>
         <tr>
