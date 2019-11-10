@@ -7,12 +7,31 @@ import javax.persistence.*;
 public class ShopProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Integer id;
+    private Integer id;
 
     private String imgSrc = "";
     private String text = "";
     private int cost = 0;
     private String title = "";
+
+    public Integer getId() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return "ShopProduct{" +
+                "id=" + id +
+                ", imgSrc='" + imgSrc + '\'' +
+                ", text='" + text + '\'' +
+                ", cost=" + cost +
+                ", title='" + title + '\'' +
+                '}';
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getImgSrc() {
         return imgSrc;
