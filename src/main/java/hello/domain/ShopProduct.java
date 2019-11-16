@@ -9,13 +9,23 @@ public class ShopProduct {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private String imgSrc = "";
-    private String text = "";
+    private String title;
+    private String imgSrc;
+    private String text;
+    private String about;
     private int cost = 0;
-    private String title = "";
+
 
     public Integer getId() {
         return id;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
     }
 
     @Override

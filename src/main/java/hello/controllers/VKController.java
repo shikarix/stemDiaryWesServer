@@ -46,6 +46,16 @@ public class VKController {
 
                 }
             }
+            char[] chars = text.toCharArray();
+            for (int i = 0; i < chars.length; i++) {
+                if(chars[i] > 'я'){
+                    chars[i] = 0;
+                }
+            }
+            text = "";
+            for (int i = 0; i < chars.length; i++) {
+                text+=chars[i];
+            }
             String paragraphData[] = text.split("\n");
             String resultText = "";
             for (String paragraph : paragraphData){

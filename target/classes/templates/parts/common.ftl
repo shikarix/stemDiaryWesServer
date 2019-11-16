@@ -19,3 +19,6 @@
     </body>
     </html>
 </#macro>
+<#macro myTextInput left width id>
+    <input style="border-width: 0 0 1px 0; position: relative; border-color: silver; outline:none; left: ${left}%; width: ${width}%" id="${id}" name="${id}">
+</#macro>

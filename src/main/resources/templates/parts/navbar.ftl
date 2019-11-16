@@ -1,7 +1,7 @@
 <#macro navbar>
     <div class="navbar navbar-light bg-light">
         <div class="navbar-brand">
-            <a href="#">
+            <a href="/profile">
                 <img src="https://static.tildacdn.com/tild3865-3431-4934-a462-636139616135/noroot.png" alt="Стем">
             </a>
         </div>
@@ -21,7 +21,7 @@
             </a>
         </div>
         <div class="navbar-text">
-            <a href="#">
+            <a href="/shop">
                 Магазин
             </a>
         </div>

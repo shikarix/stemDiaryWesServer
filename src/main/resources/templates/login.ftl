@@ -18,7 +18,6 @@
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
     </div>
     <br>
-    <div><input type="submit" value="Sign In" style="position:relative; left: 49%; font-family:sans-serif;"
-                href="https://oauth.vk.com/authorize?client_id=7193860&redirect_uri="/></div>
+    <div><input type="submit" value="Sign In" style="position:relative; left: 49%; font-family:sans-serif;"/></div>
 </form>
 </@pages.page>
