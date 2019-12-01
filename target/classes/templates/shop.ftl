@@ -14,13 +14,13 @@
         <br>
         <@pages.myTextInput 1 90 'cost'></@pages.myTextInput>
         <br>
-        <button class="btn btn-outline-success" type="submit">Выбрать</button>
+        <button class="btn btn-outline-success" type="submit" style="margin-top: 5px">Выбрать</button>
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
     </form>
 
     <div class="card-columns" style="position: relative; left: 20%; width: 75%">
         <#list products as products>
-            <@productCard.product "${products.imgSrc}" "${products.title}" "${products.text}" "${products.cost}">
+            <@productCard.product "${products.imgSrc}" "${products.title}" "${products.text}" "${products.cost}" '${products.id}' >
             </@productCard.product>
         <#else>
             <div style="position: relative; display: block; text-align: center; margin: auto;">

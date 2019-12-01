@@ -3,11 +3,7 @@ package hello.controllers;
 import com.vk.api.sdk.client.TransportClient;
 import com.vk.api.sdk.client.VkApiClient;
 import com.vk.api.sdk.client.actors.ServiceActor;
-import com.vk.api.sdk.exceptions.ApiException;
-import com.vk.api.sdk.exceptions.ClientException;
 import com.vk.api.sdk.httpclient.HttpTransportClient;
-import com.vk.api.sdk.objects.photos.Photo;
-import com.vk.api.sdk.objects.video.Video;
 import com.vk.api.sdk.objects.wall.WallPostFull;
 import com.vk.api.sdk.objects.wall.WallpostAttachment;
 import com.vk.api.sdk.objects.wall.responses.GetResponse;
@@ -16,10 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 @Controller
 public class VKController {
@@ -34,39 +27,39 @@ public class VKController {
         for (WallPostFull post : response.getItems()) {
             String text = post.getText();
             Post newPost = new Post();
-            for (WallpostAttachment attachment:post.getAttachments()) {
-                if (attachment.getPhoto() != null){
-                    newPost.setSrcToImage(attachment.getPhoto().getPhoto130());
-                }
-                else {
-                    if (attachment.getVideo() != null){
-                        newPost.setSrcToImage(attachment.getVideo().getPhoto130());
-                    }
-                    else newPost.setSrcToImage("https://sun9-16.userapi.com/c851224/v851224158/194606/pW5Vv5hvKX4.jpg");
+            if (post.getAttachments() != null)
+                for (WallpostAttachment attachment : post.getAttachments()) {
+                    if (attachment.getPhoto() != null) {
+                        newPost.setSrcToImage(attachment.getPhoto().getPhoto130());
+                    } else {
+                        if (attachment.getVideo() != null) {
+                            newPost.setSrcToImage(attachment.getVideo().getPhoto130());
+                        } else
+                            newPost.setSrcToImage("https://static.tildacdn.com/tild3865-3431-4934-a462-636139616135/noroot.png");
 
+                    }
                 }
-            }
             char[] chars = text.toCharArray();
             for (int i = 0; i < chars.length; i++) {
-                if(chars[i] > 'я'){
+                if (chars[i] > 'я') {
                     chars[i] = 0;
                 }
             }
             text = "";
             for (int i = 0; i < chars.length; i++) {
-                text+=chars[i];
+                text += chars[i];
             }
             String paragraphData[] = text.split("\n");
             String resultText = "";
-            for (String paragraph : paragraphData){
-                resultText+=(paragraph+"<br>");
+            for (String paragraph : paragraphData) {
+                resultText += (paragraph + "<br>");
             }
             String words[] = text.split(" ");
             String preview = "";
             for (int i = 0; i < (words.length > 10 ? 10 : words.length); i++) {
-                preview += (words[i]+" ");
+                preview += (words[i] + " ");
             }
-            preview += words.length>10?"...<br> <a href=\"https://vk.com/coistem?w=wall-113376999_"+post.getId()+"\" style=\"color:black;\">Подробнее</a>":"";
+            preview += words.length > 10 ? "...<br> <a href=\"https://vk.com/coistem?w=wall-113376999_" + post.getId() + "\" style=\"color:black;\">Подробнее</a>" : "";
             newPost.setText(preview);
             posts.add(newPost);
         }
@@ -75,6 +68,4 @@ public class VKController {
         return "news";
     }
 }
-
-//w=wall-113376999_id
 

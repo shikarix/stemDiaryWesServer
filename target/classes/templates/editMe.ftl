@@ -10,7 +10,7 @@
         <@al.alert "alert alert-warning alert dismissible fade show" "${warn}" ></@al.alert>
     </#if>
     <div style="width: 70%; height: 70%; position: relative; margin-top: 1%; left: 10%; border-radius: 20px 20px 20px 20px; background-color: #fdfffd">
-        <img style="position: relative; left: 3.5%; width: 16%; height: 23.8%; border-radius: 50px 50px 50px 50px;"
+        <img style="position: relative; left: 3.5%; width: 16%; height: 23.8%; border-radius: 50px 50px 50px 50px; top: 10%"
              src="https://sun9-16.userapi.com/c851224/v851224158/194606/pW5Vv5hvKX4.jpg" alt="">
         <div style="position: relative; font-family: sans-serif; left: 24%">
             <form action="/profile" method="post">

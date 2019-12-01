@@ -1,4 +1,4 @@
-<#macro product imgSrc title text cost>
+<#macro product imgSrc title text cost id>
     <div class="card border-dark">
         <div class="row no-gutters">
             <div style="display: block; margin-left: auto; margin-right: auto;">
@@ -12,9 +12,10 @@
                     <div class="card-text" style="margin-bottom: 10%">
                         ${text}
                     </div>
-                    <button class="btn btn-outline-primary" style="position: relative; left: 80%">
-                        ${cost}$
-                    </button>
+                    <div class="card-footer" style="border-color: white; border-top: white; background-color: white">
+                        <a class="btn btn-outline-primary" href="/shop/${id}">${cost}$</a>
+                    </div>
+
                 </div>
             </div>
         </div>

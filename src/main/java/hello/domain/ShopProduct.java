@@ -10,10 +10,15 @@ public class ShopProduct {
     private Integer id;
 
     private String title;
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+
     private String imgSrc;
     private String text;
     private String about;
-    private int cost = 0;
+    private Integer cost = 0;
 
 
     public Integer getId() {
@@ -61,10 +66,6 @@ public class ShopProduct {
 
     public int getCost() {
         return cost;
-    }
-
-    public void setCost(int cost) {
-        this.cost = cost;
     }
 
     public String getTitle() {

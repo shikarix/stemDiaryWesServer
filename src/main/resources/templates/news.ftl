@@ -7,7 +7,7 @@
     <div style="width: 75%; position: relative; left: 12.5%">
         <div class="card-columns">
             <#list posts as post>
-                <@card.card  "${post.text}" "2 дня назад" "${post.srcToImage}"></@card.card>
+                <@card.card  "${post.text}" "${post.srcToImage}"></@card.card>
             </#list>
         </div>
     </div>
