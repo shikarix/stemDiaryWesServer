@@ -16,7 +16,7 @@
             </a>
         </div>
         <div class="navbar-text">
-            <a href="#">
+            <a href="/timetable">
                 Расписание
             </a>
         </div>
