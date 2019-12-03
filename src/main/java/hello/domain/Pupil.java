@@ -18,6 +18,7 @@ public class Pupil {
     private String surname;
     private boolean active;
     private String avatarUrl;
+    private boolean isTeacher = false;
 
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
