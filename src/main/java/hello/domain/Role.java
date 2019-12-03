@@ -1,5 +1,8 @@
 package hello.domain;
 
 public enum Role {
-    USER;
+    USER, TEACHER, MODERATOR, ADMIN;
+    public String getAuthority(){
+        return name();
+    }
 }
