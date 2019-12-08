@@ -22,9 +22,9 @@ public class ShopController {
     @PostMapping
     public String filter(@RequestParam String name, @RequestParam Integer cost, Model model){
         Iterable<ShopProduct> products;
-        if (name != null && cost != 0) products = productRepository.findByTitleAndCost(name, cost);
-        else if (name != null) products = productRepository.findByTitle(name);
-        else if (cost != 0) products = productRepository.findByCost(cost);
+        if (!name.equals("") && cost != null) products = productRepository.findByTitleAndCost(name, cost);
+        else if (!name.equals("")) products = productRepository.findByTitle(name);
+        else if (cost != null) products = productRepository.findByCost(cost);
         else products = productRepository.findAll();
 
         model.addAttribute("products", products);
