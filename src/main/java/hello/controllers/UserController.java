@@ -33,8 +33,9 @@ public class UserController {
         return "userEdit";
     }
     @PostMapping
-    public String userSave(@RequestParam("UserId") Pupil pupil, @RequestParam Map<String, String> form, @RequestParam String name){
+    public String userSave(@RequestParam("UserId") Pupil pupil, @RequestParam Map<String, String> form, @RequestParam String name, @RequestParam String surname){
         pupil.setName(name);
+        pupil.setSurname(surname);
         Set<String> roles = Arrays.stream(Role.values()).map(Role::name).collect(Collectors.toSet());
         pupil.getRoles().clear();
         for (String key:form.keySet()) {
