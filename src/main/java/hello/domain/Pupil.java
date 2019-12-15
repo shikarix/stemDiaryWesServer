@@ -1,6 +1,7 @@
 package hello.domain;
 
 import javax.persistence.*;
+import java.util.GregorianCalendar;
 import java.util.Set;
 
 @Entity
@@ -19,7 +20,51 @@ public class Pupil {
     private boolean active;
     private String avatarUrl;
     private boolean isTeacher = false;
+    private boolean isAdmin = false;
+    private GregorianCalendar firstDate = new GregorianCalendar();
+    private String stringLesson = "";
 
+    public String getStringLesson() {
+        return stringLesson;
+    }
+
+    public void setStringLesson(String stringLesson) {
+        this.stringLesson = stringLesson;
+    }
+
+    public GregorianCalendar getFirstDate() {
+        return firstDate;
+    }
+
+    public void setFirstDate(GregorianCalendar firstDate) {
+        this.firstDate = firstDate;
+    }
+
+    public boolean isModerator() {
+        return isModerator;
+    }
+
+    public void setModerator(boolean moderator) {
+        isModerator = moderator;
+    }
+
+    private boolean isModerator = false;
+
+    public boolean isTeacher() {
+        return isTeacher;
+    }
+
+    public void setTeacher(boolean teacher) {
+        isTeacher = teacher;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
