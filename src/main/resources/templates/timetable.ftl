@@ -1,8 +1,9 @@
 <#import "parts/common.ftl" as pages>
 <#import "parts/navbar.ftl" as navbar>
+<#import "parts/card.ftl" as card>
 <@pages.page "Расписание">
 <@navbar.navbar></@navbar.navbar>
 <#list dates as dates>
-${dates}<br/>
+<@card.course "${dates}"></@card.course><br/>
 </#list>
 </@pages.page>

@@ -1,6 +1,6 @@
 package hello.controllers;
 
-import hello.domain.Pupil;
+import hello.domain.Accounts;
 import hello.repos.PupilReposutory;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +36,8 @@ public class GreetingController {
 
     @PostMapping(path = "/profile")
     public String editMe(@RequestParam String nickname, @RequestParam String surname, @RequestParam String oldPassword, @RequestParam String newPassword, @RequestParam String againPassword, Model model) {
-        Iterable<Pupil> pupils = pupilRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        ArrayList<Pupil> pupil = new ArrayList<>();
+        Iterable<Accounts> pupils = pupilRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        ArrayList<Accounts> pupil = new ArrayList<>();
         pupils.forEach(pupil::add);
         if (!nickname.equals(""))
             pupil.get(0).setName(nickname);
@@ -51,7 +51,7 @@ public class GreetingController {
             model.addAttribute("warn", "Фамилия не может быть пустой!");
             return add(model);
         }
-        Pupil need = pupil.get(0);
+        Accounts need = pupil.get(0);
         if (oldPassword != null)
             if (!oldPassword.equals(" ") && !oldPassword.equals("")) {
                 if (oldPassword.equals(need.getPassword())) {
@@ -86,12 +86,10 @@ public class GreetingController {
 
     @RequestMapping(path = "/editMe")
     public String add(Model model) {
-        Iterable<Pupil> pupils = pupilRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        Iterable<Accounts> pupils = pupilRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         model.addAttribute("pupils", pupils);
-        ArrayList<Pupil> pupil = new ArrayList<>();
+        ArrayList<Accounts> pupil = new ArrayList<>();
         pupils.forEach(pupil::add);
-        model.addAttribute("was", pupil.get(0).isActive());
-        pupil.get(0).setActive(true);
         pupilRepository.save(pupil.get(0));
         if (model.asMap().get("warn") == null || model.asMap().get("warn").equals("")) model.addAttribute("warn", "");
         return "editMe";
@@ -112,23 +110,22 @@ public class GreetingController {
                     JSONObject object = new JSONObject(disString);
                     JSONObject pupil = new JSONObject(objectPupil);
                     if (pupil.getString("login").equals(object.getString("login"))) {
-                        Pupil p = new Pupil();
+                        Accounts p = new Accounts();
                         p.setName(pupil.getString("name"));
-                        p.setActive(true);
                         p.setSurname(pupil.getString("surname"));
-                        p.setStemCoins(pupil.getInt("stemCoins"));
+                        p.setCoins(pupil.getInt("stemCoins"));
                         p.setAvatarUrl(pupil.getString("avatarUrl"));
                         dos.writeUTF(
                                 "{\" name \":\"" + p.getName() + "\"," +
                                         "\" surname \":\"" + p.getSurname() + "\"," +
                                         "\" accessType \":\"" + pupil.getString("accessType") + "\"," +
-                                        "\" coins \":\"" + p.getStemCoins() + "\"," +
+                                        "\" coins \":\"" + p.getCoins() + "\"," +
                                         "\" avatarUrl \":\"" + p.getAvatarUrl() + "\"}"
                         );
                         System.out.println("{\" name \":\"" + p.getName() + "\"," +
                                 "\" surname \":\"" + p.getSurname() + "\"," +
                                 "\" accessType \":\"" + pupil.getString("accessType") + "\"," +
-                                "\" coins \":\"" + p.getStemCoins() + "\"," +
+                                "\" coins \":\"" + p.getCoins() + "\"," +
                                 "\" avatarUrl \":\"" + p.getAvatarUrl() + "\"}");
                     } else dos.writeUTF("Go daleko!");
 

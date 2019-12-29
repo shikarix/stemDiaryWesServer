@@ -1,6 +1,6 @@
 package hello.controllers;
 
-import hello.domain.Pupil;
+import hello.domain.Accounts;
 import hello.repos.ProductRepository;
 import hello.repos.PupilReposutory;
 import org.json.JSONObject;
@@ -38,8 +38,8 @@ public class DatabaseControllerForAndroid {
         }
 
         ArrayList<String> strings = new ArrayList<>();
-        Iterable<Pupil> pupilsList = pupils.findByLoginAndPassword(login, password);
-        ArrayList<Pupil> pupilsArray = new ArrayList<>();
+        Iterable<Accounts> pupilsList = pupils.findByLoginAndPassword(login, password);
+        ArrayList<Accounts> pupilsArray = new ArrayList<>();
         pupilsList.forEach(pupilsArray::add);
         for (int i = 0; i < pupilsArray.size(); i++) {
             JSONObject object = new JSONObject();
@@ -47,12 +47,9 @@ public class DatabaseControllerForAndroid {
             object.put("password", pupilsArray.get(i).getPassword());
             object.put("name", pupilsArray.get(i).getName());
             object.put("surname", pupilsArray.get(i).getSurname());
-            object.put("stemCoins", pupilsArray.get(i).getStemCoins());
+            object.put("stemCoins", pupilsArray.get(i).getCoins());
             if (pupilsArray.get(i).isAdmin()){
                 object.put("accessType", "ADMIN");
-            }
-            else if (pupilsArray.get(i).isModerator()){
-                object.put("accessType", "MODERATOR");
             }
             else if (pupilsArray.get(i).isTeacher()){
                 object.put("accessType", "TEACHER");

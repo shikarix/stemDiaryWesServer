@@ -14,8 +14,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 @Controller
-@RequestMapping(path = "timetable")
-public class TimetableController {
+@RequestMapping(path = "timetableAndroid")
+public class TimetableForAndroidController {
     @Autowired
     PupilReposutory pupilReposutory;
 
@@ -54,6 +54,6 @@ public class TimetableController {
             System.out.println(calendar.get(Calendar.DAY_OF_MONTH) + " " + calendar.get(Calendar.MONTH));
         }
         model.addAttribute("dates", dates);
-        return "timetable";
+        return "timetableAndroid";
     }
 }
