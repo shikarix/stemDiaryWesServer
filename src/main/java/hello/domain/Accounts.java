@@ -2,14 +2,16 @@ package hello.domain;
 
 import javax.persistence.*;
 import java.util.GregorianCalendar;
-import java.util.Set;
+
 
 @Entity
-@Table(name = "accounts")
+@Table(name = "usr")
 public class Accounts {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    private boolean active = true;
 
     private String login;
     private String password;
@@ -17,10 +19,48 @@ public class Accounts {
     private String name;
     private String surname;
 
+    private int stemCoins;
+
     private boolean isTeacher = false;
     private boolean isAdmin = false;
 
     private String avatarUrl;
+
+    private GregorianCalendar firstDate;
+
+    private String stringLesson;
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public int getStemCoins() {
+        return stemCoins;
+    }
+
+    public void setStemCoins(int stemCoins) {
+        this.stemCoins = stemCoins;
+    }
+
+    public GregorianCalendar getFirstDate() {
+        return firstDate;
+    }
+
+    public void setFirstDate(GregorianCalendar firstDate) {
+        this.firstDate = firstDate;
+    }
+
+    public String getStringLesson() {
+        return stringLesson;
+    }
+
+    public void setStringLesson(String stringLesson) {
+        this.stringLesson = stringLesson;
+    }
 
     public boolean isTeacher() {
         return isTeacher;
@@ -45,12 +85,6 @@ public class Accounts {
     public void setAdmin(boolean admin) {
         isAdmin = admin;
     }
-
-    @OneToOne(fetch = FetchType.EAGER, mappedBy = "coins")
-    private int coins;
-
-    @CollectionTable(name = "lessons", joinColumns = @JoinColumn(name = "id"))
-    private Lesson[] lessons;
 
     public String getName() {
         return name;
@@ -99,21 +133,5 @@ public class Accounts {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public int getCoins() {
-        return coins;
-    }
-
-    public void setCoins(int coins) {
-        this.coins = coins;
-    }
-
-    public Lesson[] getLessons() {
-        return lessons;
-    }
-
-    public void setLessons(Lesson[] lessons) {
-        this.lessons = lessons;
     }
 }

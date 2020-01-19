@@ -49,6 +49,9 @@ public class VKController {
             for (int i = 0; i < chars.length; i++) {
                 text += chars[i];
             }
+            if (text.equals("")){
+                continue;
+            }
             String paragraphData[] = text.split("\n");
             String resultText = "";
             for (String paragraph : paragraphData) {
@@ -56,7 +59,7 @@ public class VKController {
             }
             String words[] = text.split(" ");
             String preview = "";
-            for (int i = 0; i < (words.length > 10 ? 10 : words.length); i++) {
+            for (int i = 0; i < (words.length > 50 ? 50 : words.length); i++) {
                 preview += (words[i] + " ");
             }
             preview += words.length > 10 ? "...<br> <a href=\"https://vk.com/coistem?w=wall-113376999_" + post.getId() + "\" style=\"color:black;\">Подробнее</a>" : "";

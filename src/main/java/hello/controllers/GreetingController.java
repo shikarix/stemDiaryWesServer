@@ -113,19 +113,19 @@ public class GreetingController {
                         Accounts p = new Accounts();
                         p.setName(pupil.getString("name"));
                         p.setSurname(pupil.getString("surname"));
-                        p.setCoins(pupil.getInt("stemCoins"));
+                        p.setStemCoins(pupil.getInt("stemCoins"));
                         p.setAvatarUrl(pupil.getString("avatarUrl"));
                         dos.writeUTF(
                                 "{\" name \":\"" + p.getName() + "\"," +
                                         "\" surname \":\"" + p.getSurname() + "\"," +
                                         "\" accessType \":\"" + pupil.getString("accessType") + "\"," +
-                                        "\" coins \":\"" + p.getCoins() + "\"," +
+                                        "\" coins \":\"" + p.getStemCoins() + "\"," +
                                         "\" avatarUrl \":\"" + p.getAvatarUrl() + "\"}"
                         );
                         System.out.println("{\" name \":\"" + p.getName() + "\"," +
                                 "\" surname \":\"" + p.getSurname() + "\"," +
                                 "\" accessType \":\"" + pupil.getString("accessType") + "\"," +
-                                "\" coins \":\"" + p.getCoins() + "\"," +
+                                "\" coins \":\"" + p.getStemCoins() + "\"," +
                                 "\" avatarUrl \":\"" + p.getAvatarUrl() + "\"}");
                     } else dos.writeUTF("Go daleko!");
 

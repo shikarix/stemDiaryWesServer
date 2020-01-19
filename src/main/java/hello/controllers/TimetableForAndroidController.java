@@ -22,7 +22,7 @@ public class TimetableForAndroidController {
     @GetMapping(path = "/{pupil}")
     public String timetableList(Model model, @PathVariable Accounts pupil){
         ArrayList<String> dates = new ArrayList<>();
-        GregorianCalendar calendar = pupil.getLessons()[0].getCalendar();
+        GregorianCalendar calendar = pupil.getFirstDate();
         dates.add(calendar.get(Calendar.DAY_OF_MONTH) + " " +
                 (calendar.get(Calendar.MONTH) == GregorianCalendar.JANUARY ? "января" :
                  calendar.get(Calendar.MONTH) == GregorianCalendar.FEBRUARY ? "февраля" :

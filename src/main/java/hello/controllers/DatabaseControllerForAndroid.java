@@ -47,7 +47,7 @@ public class DatabaseControllerForAndroid {
             object.put("password", pupilsArray.get(i).getPassword());
             object.put("name", pupilsArray.get(i).getName());
             object.put("surname", pupilsArray.get(i).getSurname());
-            object.put("stemCoins", pupilsArray.get(i).getCoins());
+            object.put("stemCoins", pupilsArray.get(i).getStemCoins());
             if (pupilsArray.get(i).isAdmin()){
                 object.put("accessType", "ADMIN");
             }
