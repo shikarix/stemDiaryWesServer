@@ -30,6 +30,9 @@ public class Application {
                 }
             }
         }.start();
+        new Thread(() -> {
+           while (true){}
+        });
     }
 
 }

@@ -3,9 +3,6 @@
 <#import "parts/alertTab.ftl" as al>
 <@pages.page "Профиль">
     <@navbar.navbar></@navbar.navbar>
-    <#if was!=true>
-        <@al.alert "alert alert-success alert-dismissible fade show" "Вы успешно вошли"></@al.alert>
-    </#if>
     <#if warn != "">
         <@al.alert "alert alert-warning alert dismissible fade show" "${warn}" ></@al.alert>
     </#if>
