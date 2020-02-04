@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
-C:\\ProgramFiles\maven\bin\mvn clean package
-echo 'Copy Files...'
-scp -i /mnt/d/testkey \ /mnt/d/programmPack/программирование/StemDiary/out/artifacts/StemDiary_jar/StemDiary.jar \ ubuntu@18.191.156.108:/home/ubuntu/
-echo 'Restart server'
-ssh -i /mnt/d/testkey ubuntu@18.191.156.108 << EOF
-
+mvn clean package
+echo 'Copy files...'
+scp target/StemD-0.1.0.jar ubuntu@18.191.156.108:/home/ubuntu/
+echo 'Restart server...'
+ssh ubuntu@18.191.156.108 << EOF
 pgrep java | xargs kill -9
-nohup java -jar StemDiary.jar > log.txt &
-
+nohup java -jar StemD-0.1.0.jar > log.txt &
+echo ready
 EOF
-echo 'bye'
+echo 'Bye'
