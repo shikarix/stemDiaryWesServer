@@ -13,9 +13,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 @Controller
 public class VKController {
+    String[] colors = {
+            "fd6e0c",
+            "2ab7f4",
+            "ff2846",
+            "40ff27",
+            "8348f1"
+    };
     @RequestMapping(path = "/news")
     public String showNews(Model model) throws Exception {
         TransportClient transportClient = HttpTransportClient.getInstance();
@@ -67,6 +75,7 @@ public class VKController {
             posts.add(newPost);
         }
         model.addAttribute("posts", posts);
+        model.addAttribute("color", colors[new Random().nextInt(colors.length)]);
 
         return "news";
     }
