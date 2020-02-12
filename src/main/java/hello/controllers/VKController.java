@@ -38,10 +38,10 @@ public class VKController {
             if (post.getAttachments() != null)
                 for (WallpostAttachment attachment : post.getAttachments()) {
                     if (attachment.getPhoto() != null) {
-                        newPost.setSrcToImage(attachment.getPhoto().getPhoto130());
+                        newPost.setSrcToImage(attachment.getPhoto().getPhoto807());
                     } else {
                         if (attachment.getVideo() != null) {
-                            newPost.setSrcToImage(attachment.getVideo().getPhoto130());
+                            newPost.setSrcToImage(attachment.getVideo().getPhoto800());
                         } else
                             newPost.setSrcToImage("https://static.tildacdn.com/tild3865-3431-4934-a462-636139616135/noroot.png");
 

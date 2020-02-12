@@ -35,22 +35,10 @@ public class GreetingController {
     }
 
     @PostMapping(path = "/profile")
-    public String editMe(@RequestParam String nickname, @RequestParam String surname, @RequestParam String oldPassword, @RequestParam String newPassword, @RequestParam String againPassword, Model model) {
+    public String editMe(@RequestParam String oldPassword, @RequestParam String newPassword, @RequestParam String againPassword, Model model) {
         Iterable<Accounts> pupils = pupilRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         ArrayList<Accounts> pupil = new ArrayList<>();
         pupils.forEach(pupil::add);
-        if (!nickname.equals(""))
-            pupil.get(0).setName(nickname);
-        else {
-            model.addAttribute("warn", "Имя не может быть пустым!");
-            return add(model);
-        }
-        if (!surname.equals(""))
-            pupil.get(0).setSurname(surname);
-        else {
-            model.addAttribute("warn", "Фамилия не может быть пустой!");
-            return add(model);
-        }
         Accounts need = pupil.get(0);
         if (oldPassword != null)
             if (!oldPassword.equals(" ") && !oldPassword.equals("")) {

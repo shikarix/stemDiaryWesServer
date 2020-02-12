@@ -23,11 +23,9 @@
             <@productCard.product "${products.imgSrc}" "${products.title}" "${products.text}" "${products.cost}" '${products.id}' >
             </@productCard.product>
         <#else>
-            <div style="position: relative; display: block; text-align: center; margin: auto;">
+            <div>
                 Хм... Возможно Ваши фильтры слишком строги?
             </div>
-
         </#list>
-
     </div>
 </@pages.page>
