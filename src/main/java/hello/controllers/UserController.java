@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/pupils")
-@PreAuthorize("hasAuthority('MODERATOR')")
 public class UserController {
     @Autowired
     public PupilReposutory pupilReposutory;
@@ -26,9 +25,11 @@ public class UserController {
         return "userList";
     }
     @GetMapping("{pupil}")
+    // TODO: 16.02.2020 ШНЯГАААААААААААААААААААААААААААААААААА
     public String userEdit(@PathVariable Accounts pupil, Model model){
         model.addAttribute("pupil", pupil);
-        model.addAttribute("roles", Role.values());
+        model.addAttribute("isAdmin", pupil.isAdmin()?"true":"false");
+        model.addAttribute("isTeacher", pupil.isTeacher()?"true":"false");
         return "userEdit";
     }
     @PostMapping

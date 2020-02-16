@@ -29,6 +29,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/database/{login}/{password}").permitAll();
+        http.authorizeRequests().antMatchers("/androidShop/{login}/{pass}").permitAll();
+        http.authorizeRequests().antMatchers("/buy/{id}/{login}/{pass}").permitAll();
         http.authorizeRequests().antMatchers("/timetableAndroid/{id}").permitAll();
         http
                 .authorizeRequests()

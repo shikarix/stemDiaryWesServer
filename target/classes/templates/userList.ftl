@@ -5,7 +5,8 @@
         <tr>
             <td>Имя</td>
             <td>Фамилия</td>
-            <td>Роли</td>
+            <td>Админ</td>
+            <td>Учитель</td>
             <td style="width: 25%"></td>
         </tr>
         </thead>
@@ -14,7 +15,8 @@
             <tr>
                 <td>${pupil.name}</td>
                 <td>${pupil.surname}</td>
-                <td><#list pupil.roles as role>${role}<#sep>,</#list></td>
+                <td>${pupil.isAdmin+''}</td>
+                <td>${pupil.isTeacher+''}</td>
                 <td><a href="/pupils/${pupil.id}">
                         <svg x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve"
                              style="width: 15%; height: 15%; enable-background:new 0 0 512 512;">

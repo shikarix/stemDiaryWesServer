@@ -12,6 +12,7 @@ public class Accounts {
     private Integer id;
 
     private boolean active = true;
+    private boolean premium = false;
 
     private String login;
     private String password;
