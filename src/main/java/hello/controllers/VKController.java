@@ -12,7 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Random;
 
 @Controller
@@ -67,15 +69,25 @@ public class VKController {
             }
             String words[] = text.split(" ");
             String preview = "";
-            for (int i = 0; i < (words.length > 50 ? 50 : words.length); i++) {
+            for (int i = 0; i < (Math.min(words.length, 50)); i++) {
                 preview += (words[i] + " ");
             }
-            preview += words.length > 10 ? "...<br> <a href=\"https://vk.com/coistem?w=wall-113376999_" + post.getId() + "\" style=\"color:black;\">Подробнее</a>" : "";
+            preview += "...<br> <a href=\"https://vk.com/coistem?w=wall-113376999_" + post.getId() + "\" style=\"color:black;\">Подробнее</a>";
             newPost.setText(preview);
+
+            long time = post.getDate();
+            SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String formattedDate = sdf.format(time * 1000L);
+            System.out.println(formattedDate);
+
+            newPost.setDate(formattedDate);
             posts.add(newPost);
+
+
         }
         model.addAttribute("posts", posts);
-        model.addAttribute("color", colors[new Random().nextInt(colors.length)]);
+
+//        model.addAttribute("color", colors[new Random().nextInt(colors.length)]);
 
         return "news";
     }

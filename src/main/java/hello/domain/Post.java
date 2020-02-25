@@ -3,6 +3,15 @@ package hello.domain;
 public class Post {
     private String srcToImage = "";
     private String text = "";
+    private String date = "";
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public String getSrcToImage() {
         return srcToImage;
