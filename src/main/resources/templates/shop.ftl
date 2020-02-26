@@ -4,17 +4,17 @@
 
 <@pages.page "Магазин">
     <@navbar.navbar></@navbar.navbar>
-    <form style="position: fixed; left: 2%;" action="/shop" method="post">
-        <h4>Фильтр</h4>
+    <form class="alert alert-success" style="position: fixed; left: 2%; width: 20%" action="/shop" method="post">
+        <h4 style="margin-bottom: 10px">Фильтр</h4>
         <label>Название</label>
         <br>
         <@pages.myTextInput 1 90 'name'></@pages.myTextInput>
         <br>
-        <label>Стоимость</label>
+        <label style="margin-top: 10px">Стоимость</label>
         <br>
         <@pages.myTextInput 1 90 'cost'></@pages.myTextInput>
         <br>
-        <button class="btn btn-outline-success" type="submit" style="margin-top: 5px">Выбрать</button>
+        <button class="btn btn-outline-success" type="submit" style="margin-top: 20px">Выбрать</button>
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
     </form>
 
