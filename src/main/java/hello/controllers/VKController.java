@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Random;
 
 @Controller
 public class VKController {
@@ -26,7 +24,7 @@ public class VKController {
     PupilReposutory pupilRepository;
     @RequestMapping(path = "/news")
     public String showNews(Model model) throws Exception {
-        model.addAttribute("is", pupilRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isAdmin());
+        model.addAttribute("is", pupilRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
         TransportClient transportClient = HttpTransportClient.getInstance();
         VkApiClient vk = new VkApiClient(transportClient);
 
@@ -44,7 +42,7 @@ public class VKController {
                         if (attachment.getVideo() != null) {
                             newPost.setSrcToImage(attachment.getVideo().getPhoto800());
                         } else
-                            newPost.setSrcToImage("https://static.tildacdn.com/tild3865-3431-4934-a462-636139616135/noroot.png");
+                            newPost.setSrcToImage("https://sun9-42.userapi.com/c840639/v840639776/6f0b8/_yfExCc5uf8.jpg");
 
                     }
                 }

@@ -4,7 +4,7 @@
 
 <@pages.page "Магазин">
     <@navbar.navbar is></@navbar.navbar>
-    <form class="alert alert-success" style="position: fixed; left: 2%; width: 20%" action="/shop" method="post">
+    <form class="alert alert-success" style="position: fixed; left: 2%; width: 15%; min-width:160px" action="/shop" method="post">
         <h4 style="margin-bottom: 10px">Фильтр</h4>
         <label>Название</label>
         <br>

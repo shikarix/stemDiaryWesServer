@@ -22,8 +22,8 @@ public class Accounts {
 
     private int stemCoins;
 
-    private boolean isTeacher = false;
-    private boolean isAdmin = false;
+    boolean isTeacher = false;
+    boolean isAdmin = false;
 
     private String avatarUrl;
 
@@ -63,7 +63,7 @@ public class Accounts {
         this.stringLesson = stringLesson;
     }
 
-    public boolean isTeacher() {
+    public boolean isThisTeacher() {
         return isTeacher;
     }
 
@@ -79,7 +79,7 @@ public class Accounts {
         isTeacher = teacher;
     }
 
-    public boolean isAdmin() {
+    public boolean isThisAdmin() {
         return isAdmin;
     }
 

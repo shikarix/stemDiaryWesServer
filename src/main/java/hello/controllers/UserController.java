@@ -1,18 +1,11 @@
 package hello.controllers;
 
 import hello.domain.Accounts;
-import hello.domain.Role;
 import hello.repos.PupilReposutory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/pupils")
@@ -25,11 +18,10 @@ public class UserController {
         return "userList";
     }
     @GetMapping("{pupil}")
-    // TODO: 16.02.2020 ШНЯГАААААААААААААААААААААААААААААААААА
     public String userEdit(@PathVariable Accounts pupil, Model model){
         model.addAttribute("pupil", pupil);
-        model.addAttribute("isAdmin", pupil.isAdmin()?"true":"false");
-        model.addAttribute("isTeacher", pupil.isTeacher()?"true":"false");
+        model.addAttribute("isAdmin", pupil.isThisAdmin()?"true":"false");
+        model.addAttribute("isTeacher", pupil.isThisTeacher()?"true":"false");
         return "userEdit";
     }
     @PostMapping

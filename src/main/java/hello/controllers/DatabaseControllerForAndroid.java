@@ -48,10 +48,10 @@ public class DatabaseControllerForAndroid {
             object.put("name", pupilsArray.get(i).getName());
             object.put("surname", pupilsArray.get(i).getSurname());
             object.put("stemCoins", pupilsArray.get(i).getStemCoins());
-            if (pupilsArray.get(i).isAdmin()){
+            if (pupilsArray.get(i).isThisAdmin()){
                 object.put("accessType", "ADMIN");
             }
-            else if (pupilsArray.get(i).isTeacher()){
+            else if (pupilsArray.get(i).isThisTeacher()){
                 object.put("accessType", "TEACHER");
             }
             else object.put("accessType", "PUPIL");
