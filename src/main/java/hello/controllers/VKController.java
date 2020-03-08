@@ -8,6 +8,9 @@ import com.vk.api.sdk.objects.wall.WallPostFull;
 import com.vk.api.sdk.objects.wall.WallpostAttachment;
 import com.vk.api.sdk.objects.wall.responses.GetResponse;
 import hello.domain.Post;
+import hello.repos.PupilReposutory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,15 +22,11 @@ import java.util.Random;
 
 @Controller
 public class VKController {
-    String[] colors = {
-            "fd6e0c",
-            "2ab7f4",
-            "ff2846",
-            "40ff27",
-            "8348f1"
-    };
+    @Autowired
+    PupilReposutory pupilRepository;
     @RequestMapping(path = "/news")
     public String showNews(Model model) throws Exception {
+        model.addAttribute("is", pupilRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isAdmin());
         TransportClient transportClient = HttpTransportClient.getInstance();
         VkApiClient vk = new VkApiClient(transportClient);
 

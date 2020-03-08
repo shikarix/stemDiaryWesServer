@@ -22,7 +22,7 @@ public class TimetableController {
 
     @RequestMapping(path = "/timetable")
     public String timetableList(Model model){
-        System.out.println("лала");
+        model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isAdmin());
         Accounts pupil = pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0);
         System.out.println(pupil);
         ArrayList<String> dates = new ArrayList<>();

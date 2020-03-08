@@ -74,6 +74,7 @@ public class GreetingController {
 
     @RequestMapping(path = "/editMe")
     public String add(Model model) {
+        model.addAttribute("is", pupilRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isAdmin());
         Iterable<Accounts> pupils = pupilRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         model.addAttribute("pupils", pupils);
         ArrayList<Accounts> pupil = new ArrayList<>();

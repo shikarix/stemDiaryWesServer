@@ -4,7 +4,7 @@
 <#import "parts/card.ftl" as card>
 <@page.page "Новости">
     <div style="background-color: #eeeeee">
-    <@navbar.navbar></@navbar.navbar>
+    <@navbar.navbar is></@navbar.navbar>
     <div style="width: 75%; position: relative; left: 12.5%">
         <div class="card">
             <#list posts as post>

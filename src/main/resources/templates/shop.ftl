@@ -3,7 +3,7 @@
 <#import "parts/productCard.ftl" as productCard>
 
 <@pages.page "Магазин">
-    <@navbar.navbar></@navbar.navbar>
+    <@navbar.navbar is></@navbar.navbar>
     <form class="alert alert-success" style="position: fixed; left: 2%; width: 20%" action="/shop" method="post">
         <h4 style="margin-bottom: 10px">Фильтр</h4>
         <label>Название</label>

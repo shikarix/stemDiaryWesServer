@@ -1,4 +1,4 @@
-<#macro navbar>
+<#macro navbar isAdmin>
     <div class="navbar navbar-light bg-light">
         <div class="navbar-brand">
             <a href="/profile">
@@ -25,6 +25,13 @@
                 Магазин
             </a>
         </div>
+        <#if isAdmin = true>
+            <div class="navbar-text">
+                   <a href="/pupils">
+                       Панель Администратора
+                   </a>
+            </div>
+        </#if>
         <form class="form-inline my-2 my-lg-0" action="/logout" method="post">
             <button type="submit" class="btn btn-outline-success">Выйти</button>
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>

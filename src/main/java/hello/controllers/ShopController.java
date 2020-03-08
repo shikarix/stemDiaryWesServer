@@ -2,7 +2,9 @@ package hello.controllers;
 
 import hello.domain.ShopProduct;
 import hello.repos.ProductRepository;
+import hello.repos.PupilReposutory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +18,12 @@ public class ShopController {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    PupilReposutory pupilRepository;
+
     @GetMapping
     public String shop(Model model) {
+        model.addAttribute("is", pupilRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isAdmin());
         Iterable<ShopProduct> products = productRepository.findAll();
         model.addAttribute("products", products);
         return "shop";
@@ -25,6 +31,7 @@ public class ShopController {
 
     @PostMapping
     public String filter(@RequestParam String name, @RequestParam Integer cost, Model model) {
+        model.addAttribute("is", pupilRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isAdmin());
         List<ShopProduct> products;
         if (!name.equals("") && cost != null) {
             products = productRepository.findByTitleContaining(name);
@@ -43,6 +50,7 @@ public class ShopController {
 
     @GetMapping(path = "{shopProduct}")
     public String product(@PathVariable ShopProduct shopProduct, Model model) {
+        model.addAttribute("is", pupilRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isAdmin());
         if (shopProduct.getImgSrc().equals("")) {
             shopProduct.setImgSrc("https://vk.com/photo-113376999_457241099https://vk.com/photo-113376999_457241099");
         }
