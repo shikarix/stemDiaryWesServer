@@ -1,6 +1,7 @@
 package hello.controllers;
 
 import hello.domain.Accounts;
+import hello.repos.LessonRepository;
 import hello.repos.PupilReposutory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -16,6 +18,9 @@ import java.util.GregorianCalendar;
 public class TimetableController {
     @Autowired
     PupilReposutory pupilReposutory;
+
+    @Autowired
+    LessonRepository lessonRepository;
 
     @RequestMapping(path = "/timetable")
     public String timetableList(Model model){
@@ -55,6 +60,7 @@ public class TimetableController {
             System.out.println(calendar.get(Calendar.DAY_OF_MONTH) + " " + calendar.get(Calendar.MONTH));
         }
         model.addAttribute("dates", dates);
+
         return "timetable";
     }
 }
