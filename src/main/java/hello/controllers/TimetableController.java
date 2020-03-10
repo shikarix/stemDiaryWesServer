@@ -1,6 +1,9 @@
 package hello.controllers;
 
 import hello.domain.Accounts;
+import hello.domain.Lesson;
+import hello.domain.ModelDomain.LessonTimes;
+import hello.repos.LessonDefRepository;
 import hello.repos.LessonRepository;
 import hello.repos.PupilReposutory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 @Controller
 public class TimetableController {
@@ -22,45 +24,33 @@ public class TimetableController {
     @Autowired
     LessonRepository lessonRepository;
 
+    @Autowired
+    LessonDefRepository lessonDefRepository;
+
     @RequestMapping(path = "/timetable")
-    public String timetableList(Model model){
+    public String timetableList(Model model) {
         model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
         Accounts pupil = pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0);
-        System.out.println(pupil);
-        ArrayList<String> dates = new ArrayList<>();
-        GregorianCalendar calendar = pupil.getFirstDate();
-        dates.add(calendar.get(Calendar.DAY_OF_MONTH) + " " +
-                (calendar.get(Calendar.MONTH) == GregorianCalendar.JANUARY ? "января" :
-                 calendar.get(Calendar.MONTH) == GregorianCalendar.FEBRUARY ? "февраля" :
-                 calendar.get(Calendar.MONTH) == GregorianCalendar.MARCH ? "марта" :
-                 calendar.get(Calendar.MONTH) == GregorianCalendar.APRIL ? "апреля" :
-                 calendar.get(Calendar.MONTH) == GregorianCalendar.MAY ? "мая" :
-                 calendar.get(Calendar.MONTH) == GregorianCalendar.JUNE ? "июня" :
-                 calendar.get(Calendar.MONTH) == GregorianCalendar.JULY ? "июля" :
-                 calendar.get(Calendar.MONTH) == GregorianCalendar.AUGUST ? "августа" :
-                 calendar.get(Calendar.MONTH) == GregorianCalendar.SEPTEMBER ? "сентября" :
-                 calendar.get(Calendar.MONTH) == GregorianCalendar.OCTOBER ? "октября" :
-                 calendar.get(Calendar.MONTH) == GregorianCalendar.NOVEMBER ? "ноября" :
-                 calendar.get(Calendar.MONTH) == GregorianCalendar.DECEMBER ? "декабря" : "Вы дурачок"));
-        for (int i = 0; i < 10; i++) {
-            calendar.add(Calendar.DAY_OF_MONTH,7);
-            dates.add(calendar.get(Calendar.DAY_OF_MONTH) + " " +
-                    (calendar.get(Calendar.MONTH) == GregorianCalendar.JANUARY ? "января" :
-                     calendar.get(Calendar.MONTH) == GregorianCalendar.FEBRUARY ? "февраля" :
-                     calendar.get(Calendar.MONTH) == GregorianCalendar.MARCH ? "марта" :
-                     calendar.get(Calendar.MONTH) == GregorianCalendar.APRIL ? "апреля" :
-                     calendar.get(Calendar.MONTH) == GregorianCalendar.MAY ? "мая" :
-                     calendar.get(Calendar.MONTH) == GregorianCalendar.JUNE ? "июня" :
-                     calendar.get(Calendar.MONTH) == GregorianCalendar.JULY ? "июля" :
-                     calendar.get(Calendar.MONTH) == GregorianCalendar.AUGUST ? "августа" :
-                     calendar.get(Calendar.MONTH) == GregorianCalendar.SEPTEMBER ? "сентября" :
-                     calendar.get(Calendar.MONTH) == GregorianCalendar.OCTOBER ? "октября" :
-                     calendar.get(Calendar.MONTH) == GregorianCalendar.NOVEMBER ? "ноября" :
-                     calendar.get(Calendar.MONTH) == GregorianCalendar.DECEMBER ? "декабря" : "Вы дурачок"));
-            System.out.println(calendar.get(Calendar.DAY_OF_MONTH) + " " + calendar.get(Calendar.MONTH));
-        }
-        model.addAttribute("dates", dates);
 
+        ArrayList<Lesson> lessons = lessonRepository.findByPupilId(pupil.getId());
+        ArrayList<LessonTimes> modelLessons = new ArrayList<>();
+        for (Lesson l : lessons) {
+            LessonTimes lesson = new LessonTimes();
+            lesson.name = lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getLessonName();
+            lesson.time = lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.HOUR_OF_DAY) + ":" + (lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.MINUTE) == 0 ? "00" : lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.MINUTE));
+            lesson.date1 = lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.DAY_OF_MONTH) + "." + (lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.MONTH) + 1) + "." + lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.YEAR);
+            lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().add(Calendar.DAY_OF_MONTH, 7);
+            lesson.date2 = lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.DAY_OF_MONTH) + "." + (lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.MONTH) + 1) + "." + lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.YEAR);
+            lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().add(Calendar.DAY_OF_MONTH, 7);
+            lesson.date3 = lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.DAY_OF_MONTH) + "." + (lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.MONTH) + 1) + "." + lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.YEAR);
+            lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().add(Calendar.DAY_OF_MONTH, 7);
+            lesson.date4 = lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.DAY_OF_MONTH) + "." + (lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.MONTH) + 1) + "." + lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.YEAR);
+            lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().add(Calendar.DAY_OF_MONTH, 7);
+            lesson.date5 = lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.DAY_OF_MONTH) + "." + (lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.MONTH) + 1) + "." + lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.YEAR);
+            modelLessons.add(lesson);
+        }
+        model.addAttribute("dates", modelLessons);
+        System.out.println(Arrays.toString(modelLessons.toArray()));
         return "timetable";
     }
 }
