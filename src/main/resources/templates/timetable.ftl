@@ -13,7 +13,7 @@
             <div class="card-body">
                 <img src="${d.urlToLessonLogo}" style="display: block; margin-left: auto; margin-right: auto; width: 150px; height: 150px;"/>
                 <h4 style="text-align: center; margin-left: 10px">
-                    ${d.time}  ${d.date1}
+                    ${d.time} <br/> ${d.date1}
                 </h4>
                 <button href="/${d.id}" style="display: block; padding: 5px; margin-left: auto; margin-right: auto; border-radius: 10px; background-color: rgb(42, 202, 250); color: white; font-family: sans-serif; font-size 1.5em; border: none;">ПОДРОБНЕЕ</button>
             </div>
