@@ -36,21 +36,15 @@ public class TimetableController {
         ArrayList<LessonTimes> modelLessons = new ArrayList<>();
         for (Lesson l : lessons) {
             LessonTimes lesson = new LessonTimes();
+            lesson.id = l.getLessonId();
+            lesson.urlToLessonLogo = lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getUrlToLessonLogo();
             lesson.name = lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getLessonName();
             lesson.time = lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.HOUR_OF_DAY) + ":" + (lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.MINUTE) == 0 ? "00" : lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.MINUTE));
             lesson.date1 = lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.DAY_OF_MONTH) + "." + (lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.MONTH) + 1) + "." + lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.YEAR);
             lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().add(Calendar.DAY_OF_MONTH, 7);
-            lesson.date2 = lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.DAY_OF_MONTH) + "." + (lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.MONTH) + 1) + "." + lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.YEAR);
-            lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().add(Calendar.DAY_OF_MONTH, 7);
-            lesson.date3 = lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.DAY_OF_MONTH) + "." + (lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.MONTH) + 1) + "." + lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.YEAR);
-            lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().add(Calendar.DAY_OF_MONTH, 7);
-            lesson.date4 = lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.DAY_OF_MONTH) + "." + (lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.MONTH) + 1) + "." + lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.YEAR);
-            lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().add(Calendar.DAY_OF_MONTH, 7);
-            lesson.date5 = lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.DAY_OF_MONTH) + "." + (lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.MONTH) + 1) + "." + lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.YEAR);
             modelLessons.add(lesson);
         }
         model.addAttribute("dates", modelLessons);
-        System.out.println(Arrays.toString(modelLessons.toArray()));
         return "timetable";
     }
 }

@@ -11,6 +11,7 @@ public class LessonDef {
     private Integer lessonId;
     private String lessonName;
     private GregorianCalendar firstTime;
+    private String urlToLessonLogo;
 
     public Integer getLessonId() {
         return lessonId;
@@ -34,5 +35,13 @@ public class LessonDef {
 
     public void setFirstTime(GregorianCalendar firstTime) {
         this.firstTime = firstTime;
+    }
+
+    public String getUrlToLessonLogo() {
+        return urlToLessonLogo;
+    }
+
+    public void setUrlToLessonLogo(String urlToLessonLogo) {
+        this.urlToLessonLogo = urlToLessonLogo;
     }
 }

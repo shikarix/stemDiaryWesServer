@@ -3,23 +3,21 @@
 <#import "parts/card.ftl" as card>
 <@pages.page "Расписание">
 <@navbar.navbar is></@navbar.navbar>
+<h3 style="display: block; text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.125); color: rgb(42, 202, 250); margin: 1%">Ближайшие занятия:</h3>
+<div style=" display: flex; flex-flow: row wrap;">
 <#list dates as d>
-    <div class="card" style="width: 15%; margin: 1%">
-        <div class="card-header">
-            ${d.name}
-        </div>
-        <div class="card-body">
-            <h4>
-                ${d.time} <br/>
-                ${d.date1}
-            </h4>
-            <div class="text-muted">
-                ${d.date2} <br/>
-                ${d.date3} <br/>
-                ${d.date4} <br/>
-                ${d.date5}
+    <div class="card" style="width: 15%; margin: 1%;">
+            <div class="card-header">
+                ${d.name}
+            </div>
+            <div class="card-body">
+                <img src="${d.urlToLessonLogo}" style="display: block; margin-left: auto; margin-right: auto; width: 150px; height: 150px;"/>
+                <h4 style="text-align: center; margin-left: 10px">
+                    ${d.time}  ${d.date1}
+                </h4>
+                <button href="/${d.id}" style="display: block; padding: 5px; margin-left: auto; margin-right: auto; border-radius: 10px; background-color: rgb(42, 202, 250); color: white; font-family: sans-serif; font-size 1.5em; border: none;">ПОДРОБНЕЕ</button>
             </div>
         </div>
-    </div>
 </#list>
+</div>
 </@pages.page>
