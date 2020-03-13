@@ -21,39 +21,8 @@ public class TimetableForAndroidController {
 
     @GetMapping(path = "/{pupil}")
     public String timetableList(Model model, @PathVariable Accounts pupil){
-        ArrayList<String> dates = new ArrayList<>();
-        GregorianCalendar calendar = pupil.getFirstDate();
-        dates.add(calendar.get(Calendar.DAY_OF_MONTH) + " " +
-                (calendar.get(Calendar.MONTH) == GregorianCalendar.JANUARY ? "января" :
-                 calendar.get(Calendar.MONTH) == GregorianCalendar.FEBRUARY ? "февраля" :
-                 calendar.get(Calendar.MONTH) == GregorianCalendar.MARCH ? "марта" :
-                 calendar.get(Calendar.MONTH) == GregorianCalendar.APRIL ? "апреля" :
-                 calendar.get(Calendar.MONTH) == GregorianCalendar.MAY ? "мая" :
-                 calendar.get(Calendar.MONTH) == GregorianCalendar.JUNE ? "июня" :
-                 calendar.get(Calendar.MONTH) == GregorianCalendar.JULY ? "июля" :
-                 calendar.get(Calendar.MONTH) == GregorianCalendar.AUGUST ? "августа" :
-                 calendar.get(Calendar.MONTH) == GregorianCalendar.SEPTEMBER ? "сентября" :
-                 calendar.get(Calendar.MONTH) == GregorianCalendar.OCTOBER ? "октября" :
-                 calendar.get(Calendar.MONTH) == GregorianCalendar.NOVEMBER ? "ноября" :
-                 calendar.get(Calendar.MONTH) == GregorianCalendar.DECEMBER ? "декабря" : "Вы дурачок"));
-        for (int i = 0; i < 10; i++) {
-            calendar.add(Calendar.DAY_OF_MONTH,7);
-            dates.add(calendar.get(Calendar.DAY_OF_MONTH) + " " +
-                    (calendar.get(Calendar.MONTH) == GregorianCalendar.JANUARY ? "января" :
-                     calendar.get(Calendar.MONTH) == GregorianCalendar.FEBRUARY ? "февраля" :
-                     calendar.get(Calendar.MONTH) == GregorianCalendar.MARCH ? "марта" :
-                     calendar.get(Calendar.MONTH) == GregorianCalendar.APRIL ? "апреля" :
-                     calendar.get(Calendar.MONTH) == GregorianCalendar.MAY ? "мая" :
-                     calendar.get(Calendar.MONTH) == GregorianCalendar.JUNE ? "июня" :
-                     calendar.get(Calendar.MONTH) == GregorianCalendar.JULY ? "июля" :
-                     calendar.get(Calendar.MONTH) == GregorianCalendar.AUGUST ? "августа" :
-                     calendar.get(Calendar.MONTH) == GregorianCalendar.SEPTEMBER ? "сентября" :
-                     calendar.get(Calendar.MONTH) == GregorianCalendar.OCTOBER ? "октября" :
-                     calendar.get(Calendar.MONTH) == GregorianCalendar.NOVEMBER ? "ноября" :
-                     calendar.get(Calendar.MONTH) == GregorianCalendar.DECEMBER ? "декабря" : "Вы дурачок"));
-            System.out.println(calendar.get(Calendar.DAY_OF_MONTH) + " " + calendar.get(Calendar.MONTH));
-        }
-        model.addAttribute("dates", dates);
+        String[] a = {"не работает", "не работает"};
+        model.addAttribute("dates", a);
         return "timetableAndroid";
     }
 }

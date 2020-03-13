@@ -27,10 +27,6 @@ public class Accounts {
 
     private String avatarUrl;
 
-    private GregorianCalendar firstDate;
-
-    private String stringLesson;
-
     public boolean isActive() {
         return active;
     }
@@ -45,22 +41,6 @@ public class Accounts {
 
     public void setStemCoins(int stemCoins) {
         this.stemCoins = stemCoins;
-    }
-
-    public GregorianCalendar getFirstDate() {
-        return firstDate;
-    }
-
-    public void setFirstDate(GregorianCalendar firstDate) {
-        this.firstDate = firstDate;
-    }
-
-    public String getStringLesson() {
-        return stringLesson;
-    }
-
-    public void setStringLesson(String stringLesson) {
-        this.stringLesson = stringLesson;
     }
 
     public boolean isThisTeacher() {

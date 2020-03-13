@@ -12,6 +12,7 @@ public class LessonDef {
     private String lessonName;
     private GregorianCalendar firstTime;
     private String urlToLessonLogo;
+    private int teacherId;
 
     public Integer getLessonId() {
         return lessonId;
@@ -43,5 +44,13 @@ public class LessonDef {
 
     public void setUrlToLessonLogo(String urlToLessonLogo) {
         this.urlToLessonLogo = urlToLessonLogo;
+    }
+
+    public int getTeacherId() {
+        return teacherId;
+    }
+
+    public void setTeacherId(int teacherId) {
+        this.teacherId = teacherId;
     }
 }

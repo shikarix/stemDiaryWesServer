@@ -7,15 +7,15 @@
 <div style=" display: flex; flex-flow: row wrap;">
 <#list dates as d>
     <div class="card" style="width: 15%; margin: 1%;">
-            <div class="card-header">
+            <div class="card-header" style="text-align: center;">
                 ${d.name}
             </div>
             <div class="card-body">
                 <img src="${d.urlToLessonLogo}" style="display: block; margin-left: auto; margin-right: auto; width: 150px; height: 150px;"/>
                 <h4 style="text-align: center; margin-bottom: 10px">
-                    ${d.time} <br/> ${d.date1}
+                    ${d.date1}
                 </h4>
-                <button href="/${d.id}" style="display: block; padding: 5px; margin-left: auto; margin-right: auto; border-radius: 10px; background-color: rgb(42, 202, 250); color: white; font-family: sans-serif; font-size 1.5em; border: none;">ПОДРОБНЕЕ</button>
+                <a href="/timetable/${d.id}"><button style="display: block; padding: 5px; margin-left: auto; margin-right: auto; border-radius: 10px; background-color: rgb(42, 202, 250); color: white; font-family: sans-serif; font-size 1.5em; border: none;">ПОДРОБНЕЕ</button></a>
             </div>
         </div>
 </#list>
