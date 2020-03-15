@@ -115,4 +115,12 @@ public class Accounts {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public boolean getAdmin(){
+        return isAdmin;
+    }
+
+    public boolean getTeacher(){
+        return isTeacher;
+    }
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 @Controller
@@ -42,6 +43,12 @@ public class TimetableController {
             lesson.name = lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getLessonName();
             lesson.time = lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.HOUR_OF_DAY) + ":" + (lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.MINUTE) == 0 ? "00" : lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime().get(Calendar.MINUTE));
             GregorianCalendar calendar = lessonDefRepository.findByLessonId(l.getLessonId()).get(0).getFirstTime();
+            Date dates = calendar.getTime();
+            Date date1 = new Date();
+            while (!dates.after(date1)){
+                calendar.add(Calendar.DAY_OF_MONTH, 7);
+                dates = calendar.getTime();
+            }
             String hours = calendar.get(Calendar.HOUR_OF_DAY) > 9 ? calendar.get(Calendar.HOUR_OF_DAY) + "" : "0" + calendar.get(Calendar.HOUR_OF_DAY);
             String minutes = calendar.get(Calendar.MINUTE) > 9 ? calendar.get(Calendar.MINUTE) + "" : "0" + calendar.get(Calendar.MINUTE);
             String time = hours + ":" + minutes;
@@ -59,6 +66,13 @@ public class TimetableController {
         model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
 
         GregorianCalendar calendar = lessonDefRepository.findByLessonId(id).get(0).getFirstTime();
+
+        Date date = calendar.getTime();
+        Date date1 = new Date();
+        while (!date.after(date1)){
+            calendar.add(Calendar.DAY_OF_MONTH, 7);
+            date = calendar.getTime();
+        }
 
         model.addAttribute("name", lessonDefRepository.findByLessonId(id).get(0).getLessonName());
         model.addAttribute("date", calendar.get(Calendar.DAY_OF_MONTH) + " " + convertMonth(calendar.get(Calendar.MONTH)) + " " + calendar.get(Calendar.YEAR) + " года");
@@ -91,5 +105,9 @@ public class TimetableController {
                 id == GregorianCalendar.NOVEMBER ? " ноября" : "декабря";
     }
 
-
+    @RequestMapping("/test")
+    public String test(Model model) {
+        model.addAttribute("isAdmin", "true");
+        return "navbar";
+    }
 }

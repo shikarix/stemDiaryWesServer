@@ -27,13 +27,13 @@ public class DatabaseControllerForAndroid {
         char[] log = login.toCharArray();
         login = "";
         for (int i = 0; i < log.length; i++) {
-            log[i] = (char)((int)log[i] - 50);
+            log[i] = (char) ((int) log[i] - 50);
             login += log[i];
         }
         char[] pass = password.toCharArray();
         password = "";
         for (int i = 0; i < pass.length; i++) {
-            pass[i] = (char)((int)pass[i] - 50);
+            pass[i] = (char) ((int) pass[i] - 50);
             password += pass[i];
         }
 
@@ -48,13 +48,11 @@ public class DatabaseControllerForAndroid {
             object.put("name", pupilsArray.get(i).getName());
             object.put("surname", pupilsArray.get(i).getSurname());
             object.put("stemCoins", pupilsArray.get(i).getStemCoins());
-            if (pupilsArray.get(i).isThisAdmin()){
+            if (pupilsArray.get(i).isThisAdmin()) {
                 object.put("accessType", "ADMIN");
-            }
-            else if (pupilsArray.get(i).isThisTeacher()){
+            } else if (pupilsArray.get(i).isThisTeacher()) {
                 object.put("accessType", "TEACHER");
-            }
-            else object.put("accessType", "PUPIL");
+            } else object.put("accessType", "PUPIL");
             object.put("avatarUrl", pupilsArray.get(i).getAvatarUrl());
             strings.add(object.toString());
             System.out.println(object.toString());
@@ -64,5 +62,4 @@ public class DatabaseControllerForAndroid {
         System.out.println(string);
         return "database";
     }
-
 }

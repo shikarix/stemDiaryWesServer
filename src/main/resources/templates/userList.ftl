@@ -1,5 +1,8 @@
 <#import "parts/common.ftl" as pages>
+<#import "parts/navbar.ftl" as navbar>
+
 <@pages.page "Пользователи">
+<@navbar.navbar is> </@navbar.navbar>
     <table class="table table-striped table-hover">
         <thead>
         <tr>
@@ -16,13 +19,19 @@
                 <td>${pupil.name}</td>
                 <td>${pupil.surname}</td>
                 <td>
-                <#if pupil.isAdmin = true>
+                <#if pupil.admin = true>
                     true
                 <#else>
                     false
                 </#if>
                 </td>
-                <td>${pupil.isTeacher}</td>
+                <td>
+                <#if pupil.teacher = true>
+                    true
+                <#else>
+                    false
+                </#if>
+                </td>
                 <td><a href="/pupils/${pupil.id}">
                         <svg x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve"
                              style="width: 15%; height: 15%; enable-background:new 0 0 512 512;">
