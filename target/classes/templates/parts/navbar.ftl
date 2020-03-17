@@ -87,6 +87,6 @@
         div.appendChild(divPanel);
         div.appendChild(formButton);
 
-        document.body.appendChild(div);
+        document.body.prepend(div);
     </script>
 </#macro>
