@@ -4,6 +4,7 @@
 <@navbar.navbar is></@navbar.navbar>
 <div style="text-align: center;"><h4><strong>${name}</strong><h4></div>
 <div style=" display: flex; flex-flow: row wrap; -webkit-justify-content: center; text-align: center;">
+
     <div class="card" style="width: 20%; margin: 1%; min-width: 155px; --height: height;">
          <div class="card-body">
              <strong> Занятие </strong> <br/>

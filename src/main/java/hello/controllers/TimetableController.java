@@ -1,6 +1,7 @@
 package hello.controllers;
 
 import hello.domain.Accounts;
+import hello.domain.Homework;
 import hello.domain.Lesson;
 import hello.domain.ModelDomain.LessonTimes;
 import hello.repos.HomeworkRepository;
@@ -11,8 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -65,6 +65,7 @@ public class TimetableController {
 
     @RequestMapping("/timetable/{id}/{lesson}")
     public String more(Model model, @PathVariable int id, @PathVariable String lesson) {
+        // id - id урока, lesson - время урока
         int[] date = convertDate(lesson);
         GregorianCalendar lessonDate = new GregorianCalendar(date[2], date[1], date[0], date[3], date[4]);
 
@@ -102,6 +103,35 @@ public class TimetableController {
         model.addAttribute("pupils", pupils);
         model.addAttribute("id", id);
         return "moreAboutLesson";
+    }
+
+    @GetMapping("/homework/{dateLesson}/{lesson}")
+    public String homework(Model model, @PathVariable String dateLesson, @PathVariable int lesson){
+        int[] date = convertDate(dateLesson);
+        GregorianCalendar lessonDate = new GregorianCalendar(date[2], date[1], date[0], date[3], date[4]);
+        model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        model.addAttribute("isT", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisTeacher());
+        if (!pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisTeacher())
+            return "redirect:/profile";
+        model.addAttribute("date",lessonDate.get(Calendar.DAY_OF_MONTH)+"T"+lessonDate.get(Calendar.MONTH)+"T"+lessonDate.get(Calendar.YEAR)+"T"+lessonDate.get(Calendar.HOUR_OF_DAY)+"T"+lessonDate.get(Calendar.MINUTE));
+        model.addAttribute("lesson", lesson);
+        model.addAttribute("name", lessonDefRepository.findByLessonId(lesson).get(0).getLessonName());
+        model.addAttribute("homework", homeworkRepository.findByLessonIdAndDate(lesson, lessonDate).get(0).getHomework());
+        return "homeworkEdit";
+    }
+
+    @PostMapping("/homework/{dateLesson}/{lesson}")
+    public String saveHomework(Model model, @PathVariable String dateLesson, @PathVariable int lesson, @RequestParam String homework){
+        int[] date = convertDate(dateLesson);
+        homework = homework.trim();
+        GregorianCalendar lessonDate = new GregorianCalendar(date[2], date[1], date[0], date[3], date[4]);
+        model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        model.addAttribute("isT", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisTeacher());
+        Homework thisHomework = homeworkRepository.findByLessonIdAndDate(lesson, lessonDate).get(0);
+        thisHomework.setHomework(homework);
+        homeworkRepository.save(thisHomework);
+        String now = lessonDate.get(Calendar.DAY_OF_MONTH)+"T"+lessonDate.get(Calendar.MONTH)+"T"+lessonDate.get(Calendar.YEAR)+"T"+lessonDate.get(Calendar.HOUR_OF_DAY)+"T"+lessonDate.get(Calendar.MINUTE);
+        return "redirect:/timetable/"+lesson+"/"+now;
     }
 
     public static String convertMonth(int id) {
