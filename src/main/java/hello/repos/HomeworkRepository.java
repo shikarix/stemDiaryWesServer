@@ -8,6 +8,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 public interface HomeworkRepository extends CrudRepository<Homework, Integer> {
-    ArrayList<Homework> findByHref(String href);
     ArrayList<Homework> findByDate(GregorianCalendar date);
+    ArrayList<Homework> findByLessonId(int lessonId);
+    ArrayList<Homework> findByLessonIdAndDate(int lessonId, GregorianCalendar date);
 }

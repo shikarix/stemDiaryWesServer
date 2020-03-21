@@ -2,15 +2,15 @@
 <#import "parts/navbar.ftl" as navbar>
 <#import "parts/alertTab.ftl" as al>
 <@pages.page "Профиль">
-    <@navbar.navbar is></@navbar.navbar>
-    <#if warn != "">
-        <@al.alert "alert alert-warning alert dismissible fade show" "${warn}" ></@al.alert>
-    </#if>
-    <div style="width: 70%; height: 70%; position: relative; margin-top: 1%; left: 10%; border-radius: 20px 20px 20px 20px; background-color: #fdfffd">
-        <img style="position: relative; left: 3.5%; width: 16%; height: 23.8%; border-radius: 50px 50px 50px 50px; top: 10%"
-             src="https://sun9-16.userapi.com/c851224/v851224158/194606/pW5Vv5hvKX4.jpg" alt="">
-        <div style="position: relative; font-family: sans-serif; left: 24%">
-            <form action="/profile" method="post">
+<@navbar.navbar is></@navbar.navbar>
+<#if warn != "">
+    <@al.alert "alert alert-warning alert dismissible fade show" "${warn}" ></@al.alert>
+</#if>
+<div style="display: flex; flex-direction: column;">
+    <div>
+        <img style="--width: width; height: calc(var(--width)); width: 50vw; " src="https://sun9-16.userapi.com/c851224/v851224158/194606/pW5Vv5hvKX4.jpg" alt="">
+        <form action="/profile" method="post">
+            <div>
                 <#list pupils as pupils>
                     <label>Имя:</label>
                     <br>
@@ -39,11 +39,14 @@
                     <br>
                     <input type="hidden" name="_csrf" value="${_csrf.token}">
                 </#list>
-                <button type="submit" class="btn btn-outline-success" style="position: relative; left: 64%">Сохранить
-                </button>
-                <button type="reset" class="btn btn-outline-warning" style="position: relative; left: 67%">Отменить
-                </button>
-            </form>
-        </div>
+            </div>
+            <div style="margin-top: 10px">
+                <button type="submit" class="btn btn-outline-success">Сохранить</button>
+                <button type="reset" class="btn btn-outline-warning">Отменить</button>
+            </div>
+        </form>
     </div>
+
+
+</div>
 </@pages.page>

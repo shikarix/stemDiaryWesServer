@@ -15,7 +15,7 @@
                 <h4 style="text-align: center; margin-bottom: 10px">
                     ${d.date1}
                 </h4>
-                <a href="/timetable/${d.id}"><button style="display: block; padding: 5px; margin-left: auto; margin-right: auto; border-radius: 10px; background-color: rgb(42, 202, 250); color: white; font-size 1.5em; border: none;"><strong>ПОДРОБНЕЕ</strong></button></a>
+                <a href="/timetable/${d.id}/${d.date}"><button style="display: block; padding: 5px; margin-left: auto; margin-right: auto; border-radius: 10px; background-color: rgb(42, 202, 250); color: white; font-size 1.5em; border: none;"><strong>ПОДРОБНЕЕ</strong></button></a>
             </div>
         </div>
 </#list>

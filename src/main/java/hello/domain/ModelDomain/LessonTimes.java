@@ -8,6 +8,15 @@ public class LessonTimes {
     public String urlToLessonLogo = "";
     public String time = "";
     public String date1 = "";
+    public String date = "";
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public String getName() {
         return name;
