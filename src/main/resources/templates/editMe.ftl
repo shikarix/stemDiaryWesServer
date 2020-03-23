@@ -6,9 +6,9 @@
 <#if warn != "">
     <@al.alert "alert alert-warning alert dismissible fade show" "${warn}" ></@al.alert>
 </#if>
-<div style="display: flex; flex-direction: column;">
-    <div>
-        <img style="--width: width; height: calc(var(--width)); width: 50vw; " src="https://sun9-16.userapi.com/c851224/v851224158/194606/pW5Vv5hvKX4.jpg" alt="">
+<div style="border: 2px solid rgba(0, 0, 0, 0.125);">
+<div style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
+        <img style="--width: width; height: calc(var(--width)); width: 30vw; " src="https://sun9-16.userapi.com/c851224/v851224158/194606/pW5Vv5hvKX4.jpg" alt="">
         <form action="/profile" method="post">
             <div>
                 <#list pupils as pupils>
@@ -45,8 +45,6 @@
                 <button type="reset" class="btn btn-outline-warning">Отменить</button>
             </div>
         </form>
-    </div>
-
-
+</div>
 </div>
 </@pages.page>

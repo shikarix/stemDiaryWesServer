@@ -14,6 +14,17 @@ public class LessonDef {
     private String urlToLessonLogo;
     private int teacherId;
 
+    @Override
+    public String toString() {
+        return "LessonDef{" +
+                "lessonId=" + lessonId +
+                ", lessonName='" + lessonName + '\'' +
+                ", firstTime=" + firstTime +
+                ", urlToLessonLogo='" + urlToLessonLogo + '\'' +
+                ", teacherId=" + teacherId +
+                '}';
+    }
+
     public Integer getLessonId() {
         return lessonId;
     }

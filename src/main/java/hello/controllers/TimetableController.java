@@ -3,6 +3,7 @@ package hello.controllers;
 import hello.domain.Accounts;
 import hello.domain.Homework;
 import hello.domain.Lesson;
+import hello.domain.LessonDef;
 import hello.domain.ModelDomain.LessonTimes;
 import hello.repos.HomeworkRepository;
 import hello.repos.LessonDefRepository;
@@ -35,7 +36,7 @@ public class TimetableController {
         model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
         Accounts pupil = pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0);
 
-        ArrayList<Lesson> lessons = lessonRepository.findByPupilId(pupil.getId());
+        ArrayList<Lesson> lessons = pupil.isThisAdmin() ? lessonRepository.findAll() : lessonRepository.findByPupilId(pupil.getId());
         ArrayList<LessonTimes> modelLessons = new ArrayList<>();
         for (Lesson l : lessons) {
             LessonTimes lesson = new LessonTimes();
@@ -133,6 +134,37 @@ public class TimetableController {
         String now = lessonDate.get(Calendar.DAY_OF_MONTH)+"T"+lessonDate.get(Calendar.MONTH)+"T"+lessonDate.get(Calendar.YEAR)+"T"+lessonDate.get(Calendar.HOUR_OF_DAY)+"T"+lessonDate.get(Calendar.MINUTE);
         return "redirect:/timetable/"+lesson+"/"+now;
     }
+    @GetMapping("/addlesson")
+    public String addLesson(Model model){
+        model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        ArrayList<String> teachers = new ArrayList<>();
+        ArrayList<Accounts> all = pupilReposutory.findAll();
+        for (int i = 0; i < all.size(); i++) {
+            if (all.get(i).isThisTeacher()){
+                teachers.add(all.get(i).getName() + " " + all.get(i).getSurname());
+            }
+        }
+        model.addAttribute("teachers", teachers);
+        return "addLesson";
+    }
+
+    @PostMapping("/addlesson")
+    public String saveLesson(Model model, @RequestParam String name, @RequestParam String date, @RequestParam String url, @RequestParam String teacher){
+        model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        int[] dateConvert = convertDateFromSaveLesson(date);
+        GregorianCalendar lessonDate = new GregorianCalendar(dateConvert[2], dateConvert[1], dateConvert[0], dateConvert[3], dateConvert[4]);
+
+        LessonDef def = new LessonDef();
+        def.setFirstTime(lessonDate);
+        def.setLessonName(name);
+        def.setLessonId(lessonDefRepository.findAll().size() + 1);
+        def.setTeacherId(pupilReposutory.findByName(teacher.split(" ")[0]).get(0).getId());
+        def.setUrlToLessonLogo(url);
+        System.out.println(def.toString());
+        lessonDefRepository.save(def);
+
+        return "redirect:/timetable";
+    }
 
     public static String convertMonth(int id) {
         return id == GregorianCalendar.JANUARY ? "января" :
@@ -150,6 +182,19 @@ public class TimetableController {
     public static int[] convertDate(String calendar){
         int[] date = new int[5];
         String[] data = calendar.split("T");
+        System.out.println(calendar);
+        System.out.println(Arrays.toString(data));
+        date[0] = Integer.parseInt(data[0]);
+        date[1] = Integer.parseInt(data[1]);
+        date[2] = Integer.parseInt(data[2]);
+        date[3] = Integer.parseInt(data[3]);
+        date[4] = Integer.parseInt(data[4]);
+        System.out.println(Arrays.toString(date));
+        return date;
+    }
+    public static int[] convertDateFromSaveLesson(String calendar){
+        int[] date = new int[5];
+        String[] data = calendar.split(" ");
         System.out.println(calendar);
         System.out.println(Arrays.toString(data));
         date[0] = Integer.parseInt(data[0]);
