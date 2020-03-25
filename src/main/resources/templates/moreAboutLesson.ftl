@@ -29,10 +29,11 @@
         <div class="card-body">
             <strong> Ученики </strong> <br/>
             <#list pupils as p>
-               ${p.name} ${p.surname}
-                   <#if isT = true>
-                      <a href="/pupil/${now}/${id}/${p.id}"><button style="display: block; padding: 5px; margin-left: auto; margin-right: auto; border-radius: 10px; background-color: rgb(42, 202, 250); color: white; font-size 1.5em; border: none; margin-top: 2%"><strong>ОЦЕНКИ</strong></button></a>
-                   </#if>
+                ${p.name} ${p.surname}
+                    <#if isT = true>
+                        <div>Оценка <#if p.currentMark == 0>ещё не выставлена<#else>${p.currentMark}</#if></div>
+                        <a href="/pupil/${now}/${id}/${p.id}"><button style="display: block; padding: 5px; margin-left: auto; margin-right: auto; border-radius: 10px; background-color: rgb(42, 202, 250); color: white; font-size 1.5em; border: none; margin-top: 2%"><strong>ОЦЕНКИ</strong></button></a>
+                    </#if>
             </#list>
         </div>
     </div>

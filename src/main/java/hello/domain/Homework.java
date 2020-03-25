@@ -14,6 +14,16 @@ public class Homework {
     private String homework;
     private int lessonId;
 
+    public Homework(int id, GregorianCalendar date, String homework, int lessonId) {
+        this.id = id;
+        this.date = date;
+        this.homework = homework;
+        this.lessonId = lessonId;
+    }
+
+    public Homework() {
+    }
+
     @Override
     public String toString() {
         return "Homework{" +

@@ -27,6 +27,17 @@ public class Accounts {
 
     private String avatarUrl;
 
+    //используется в некоторых страницах для единоразового отображения страницы
+    private int currentMark = 0;
+
+    public int getCurrentMark() {
+        return currentMark;
+    }
+
+    public void setCurrentMark(int currentMark) {
+        this.currentMark = currentMark;
+    }
+
     public boolean isActive() {
         return active;
     }

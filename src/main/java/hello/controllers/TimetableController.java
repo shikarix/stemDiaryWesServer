@@ -1,14 +1,8 @@
 package hello.controllers;
 
-import hello.domain.Accounts;
-import hello.domain.Homework;
-import hello.domain.Lesson;
-import hello.domain.LessonDef;
+import hello.domain.*;
 import hello.domain.ModelDomain.LessonTimes;
-import hello.repos.HomeworkRepository;
-import hello.repos.LessonDefRepository;
-import hello.repos.LessonRepository;
-import hello.repos.PupilReposutory;
+import hello.repos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -30,6 +24,9 @@ public class TimetableController {
 
     @Autowired
     HomeworkRepository homeworkRepository;
+
+    @Autowired
+    MarkRepository markRepository;
 
     @RequestMapping(path = "/timetable")
     public String timetableList(Model model) {
@@ -90,7 +87,7 @@ public class TimetableController {
         model.addAttribute("post", post);
         model.addAttribute("now", now);
 
-        String homework = homeworkRepository.findByLessonIdAndDate(id, lessonDate).get(0).getHomework();
+        String homework = !(homeworkRepository.findByLessonIdAndDate(id, lessonDate).isEmpty()) ? homeworkRepository.findByLessonIdAndDate(id, lessonDate).get(0).getHomework() : "";
         model.addAttribute("hw", homework);
 
         Accounts teacher = pupilReposutory.findAllById(lessonDefRepository.findByLessonId(id).get(0).getTeacherId()).get(0);
@@ -99,6 +96,7 @@ public class TimetableController {
         ArrayList<Lesson> lessons = lessonRepository.findByLessonId(id);
         ArrayList<Accounts> pupils = new ArrayList<>();
         for (int i = 0; i < lessons.size(); i++) {
+            pupilReposutory.findAllById(lessons.get(i).getPupilId()).get(0).setCurrentMark(markRepository.findByDateAndPupilId(lessonDate, lessons.get(i).getPupilId()).isEmpty() ? 0 : markRepository.findByDateAndPupilId(lessonDate, lessons.get(i).getPupilId()).get(0).getTotalStemCoins());
             pupils.add(pupilReposutory.findAllById(lessons.get(i).getPupilId()).get(0));
         }
         model.addAttribute("pupils", pupils);
@@ -117,7 +115,7 @@ public class TimetableController {
         model.addAttribute("date",lessonDate.get(Calendar.DAY_OF_MONTH)+"T"+lessonDate.get(Calendar.MONTH)+"T"+lessonDate.get(Calendar.YEAR)+"T"+lessonDate.get(Calendar.HOUR_OF_DAY)+"T"+lessonDate.get(Calendar.MINUTE));
         model.addAttribute("lesson", lesson);
         model.addAttribute("name", lessonDefRepository.findByLessonId(lesson).get(0).getLessonName());
-        model.addAttribute("homework", homeworkRepository.findByLessonIdAndDate(lesson, lessonDate).get(0).getHomework());
+        model.addAttribute("homework", !(homeworkRepository.findByLessonIdAndDate(lesson, lessonDate).isEmpty()) ? homeworkRepository.findByLessonIdAndDate(lesson, lessonDate).get(0).getHomework() : "");
         return "homeworkEdit";
     }
 
@@ -128,7 +126,7 @@ public class TimetableController {
         GregorianCalendar lessonDate = new GregorianCalendar(date[2], date[1], date[0], date[3], date[4]);
         model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
         model.addAttribute("isT", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisTeacher());
-        Homework thisHomework = homeworkRepository.findByLessonIdAndDate(lesson, lessonDate).get(0);
+        Homework thisHomework = !(homeworkRepository.findByLessonIdAndDate(lesson, lessonDate).isEmpty()) ? homeworkRepository.findByLessonIdAndDate(lesson, lessonDate).get(0) : new Homework(homeworkRepository.findAll().size(), lessonDate, "", lesson);
         thisHomework.setHomework(homework);
         homeworkRepository.save(thisHomework);
         String now = lessonDate.get(Calendar.DAY_OF_MONTH)+"T"+lessonDate.get(Calendar.MONTH)+"T"+lessonDate.get(Calendar.YEAR)+"T"+lessonDate.get(Calendar.HOUR_OF_DAY)+"T"+lessonDate.get(Calendar.MINUTE);
@@ -164,6 +162,42 @@ public class TimetableController {
         lessonDefRepository.save(def);
 
         return "redirect:/timetable";
+    }
+
+    @GetMapping("/pupil/{date}/{lessonId}/{pupilId}")
+    public String editMark(Model model, @PathVariable String date, @PathVariable int lessonId, @PathVariable int pupilId){
+        model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+
+        int[] dateConvert = convertDate(date);
+        GregorianCalendar lessonDate = new GregorianCalendar(dateConvert[2], dateConvert[1], dateConvert[0], dateConvert[3], dateConvert[4]);
+        String now = lessonDate.get(Calendar.DAY_OF_MONTH)+"T"+lessonDate.get(Calendar.MONTH)+"T"+lessonDate.get(Calendar.YEAR)+"T"+lessonDate.get(Calendar.HOUR_OF_DAY)+"T"+lessonDate.get(Calendar.MINUTE);
+        model.addAttribute("now", now);
+        model.addAttribute("pupil", pupilReposutory.findAllById(pupilId).get(0));
+        model.addAttribute("lessonId", lessonId);
+
+        return "markEditor";
+    }
+
+    @PostMapping("/pupil/{date}/{lessonId}/{pupilId}")
+    public String saveMark(Model model, @PathVariable String date, @PathVariable int lessonId, @PathVariable int pupilId, @RequestParam int homework, @RequestParam int behaviour, @RequestParam int classwork){
+        model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+
+        int[] dateConvert = convertDate(date);
+        GregorianCalendar lessonDate = new GregorianCalendar(dateConvert[2], dateConvert[1], dateConvert[0], dateConvert[3], dateConvert[4]);
+        String now = lessonDate.get(Calendar.DAY_OF_MONTH)+"T"+lessonDate.get(Calendar.MONTH)+"T"+lessonDate.get(Calendar.YEAR)+"T"+lessonDate.get(Calendar.HOUR_OF_DAY)+"T"+lessonDate.get(Calendar.MINUTE);
+
+        Mark mark = markRepository.findByDateAndPupilId(lessonDate, pupilId).isEmpty() ? new Mark() : markRepository.findByDateAndPupilId(lessonDate, pupilId).get(0);
+        mark.setDate(lessonDate);
+        mark.setPupilId(pupilId);
+        mark.setBehaviourMark(behaviour);
+        mark.setHomeworkDoingMark(homework);
+        mark.setLessonDoingMark(classwork);
+        int totalStemCoins = (int)(Math.round(((double)((homework + classwork + behaviour) / 3))));
+        mark.setTotalStemCoins(totalStemCoins);
+        System.out.println(mark.toString());
+        markRepository.save(mark);
+
+        return "redirect:/timetable/" + lessonId + "/" + now;
     }
 
     public static String convertMonth(int id) {

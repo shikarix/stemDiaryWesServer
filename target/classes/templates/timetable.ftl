@@ -19,6 +19,6 @@
             </div>
         </div>
 </#list>
-<button class="btn btn-outline-secondary" style="width: 15%; margin: 1%; min-width: 155px; height: var(--height); min-height: 320px; font-size: 4em;">+</button>
+<a href="/addlesson"><button class="btn btn-outline-secondary" style="width: 15vw; margin: 1%; min-width: 155px; height: var(--height); min-height: 320px; font-size: 4em;">+</button></a>
 </div>
 </@pages.page>
