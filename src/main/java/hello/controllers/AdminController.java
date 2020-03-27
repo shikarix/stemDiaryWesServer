@@ -1,6 +1,8 @@
 package hello.controllers;
 
 import hello.domain.Accounts;
+import hello.domain.ShopProduct;
+import hello.repos.ProductRepository;
 import hello.repos.PupilReposutory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,9 +11,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-public class UserController {
+public class AdminController {
     @Autowired
     public PupilReposutory pupilReposutory;
+
+    @Autowired
+    ProductRepository productRepository;
 
     @GetMapping("/error")
     public String error(){
@@ -62,9 +67,45 @@ public class UserController {
     @PostMapping("/create")
     public String saveNewUser(@RequestParam String login, @RequestParam String password, @RequestParam String name, @RequestParam String surname, @RequestParam String url, @RequestParam(required = false, defaultValue = "false") boolean isAdmin, @RequestParam(required = false, defaultValue = "false") boolean isTeacher){
         Accounts pupil = new Accounts(pupilReposutory.findAll().size(), login, password, name, surname, isTeacher, isAdmin, url);
-
         pupilReposutory.save(pupil);
         return "redirect:/pupils";
+    }
+
+    // работа с магазином
+
+    @GetMapping("/shopList")
+    public String shopList(Model model){
+        model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        model.addAttribute("products", productRepository.findAll());
+        return "shopList";
+    }
+
+    @GetMapping("/productEdit/{id}")
+    public String productEdit(Model model, @PathVariable int id){
+        model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        if (id == productRepository.findAll().size()) return "redirect:/createProduct";
+        model.addAttribute("p", productRepository.findAllById(id).get(0));
+        return "productEdit";
+    }
+
+    @PostMapping("/productEdit/{id}")
+    public String saveProduct(Model model, @PathVariable int id, @RequestParam String title, @RequestParam String text, @RequestParam String about, @RequestParam String cost, @RequestParam String imgSrc){
+        int thisCost = Integer.parseInt(cost);
+        model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        ShopProduct product = productRepository.findAllById(id).get(0);
+        product.setTitle(title);
+        product.setText(text);
+        product.setAbout(about);
+        product.setCost(thisCost);
+        product.setImgSrc(imgSrc);
+        productRepository.save(product);
+        return "redirect:/shopList";
+    }
+
+    @GetMapping("/createProduct")
+    public String createProduct(Model model){
+
+        return "createProduct";
     }
 
 }

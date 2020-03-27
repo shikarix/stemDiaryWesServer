@@ -9,5 +9,6 @@ public interface ProductRepository extends CrudRepository<ShopProduct, Integer> 
     List<ShopProduct> findByCost(Integer cost);
     List<ShopProduct> findByTitleContaining(String title);
     List<ShopProduct> findAll();
+    List<ShopProduct> findAllById(int id);
 
 }
