@@ -59,7 +59,7 @@
             let divPanel = document.createElement("div");
             divPanel.setAttribute("class", "navbar-text");
             let aPanel = document.createElement("a");
-            aPanel.setAttribute("href", "/pupils");
+            aPanel.setAttribute("href", "/adminPanel");
             aPanel.innerHTML = "Панель администратора";
             divPanel.appendChild(aPanel);
         </#if>

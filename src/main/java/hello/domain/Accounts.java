@@ -27,8 +27,16 @@ public class Accounts {
 
     private String avatarUrl;
 
-    //используется в некоторых страницах для единоразового отображения страницы
+    //используется в некоторых страницах для единоразового отображения
     private int currentMark = 0;
+
+    public boolean isPremium() {
+        return premium;
+    }
+
+    public void setPremium(boolean premium) {
+        this.premium = premium;
+    }
 
     public int getCurrentMark() {
         return currentMark;
@@ -111,6 +119,17 @@ public class Accounts {
         this.password = password;
     }
 
+    public Accounts(Integer id, String login, String password, String name, String surname, boolean isTeacher, boolean isAdmin, String avatarUrl) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
+        this.isTeacher = isTeacher;
+        this.isAdmin = isAdmin;
+        this.avatarUrl = avatarUrl;
+    }
+
     public String getLogin() {
         return login;
     }
@@ -133,5 +152,23 @@ public class Accounts {
 
     public boolean getTeacher(){
         return isTeacher;
+    }
+
+    @Override
+    public String toString() {
+        return "Accounts{" +
+                "id=" + id +
+                ", active=" + active +
+                ", premium=" + premium +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", stemCoins=" + stemCoins +
+                ", isTeacher=" + isTeacher +
+                ", isAdmin=" + isAdmin +
+                ", avatarUrl='" + avatarUrl + '\'' +
+                ", currentMark=" + currentMark +
+                '}';
     }
 }
