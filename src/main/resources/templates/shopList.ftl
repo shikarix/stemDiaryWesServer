@@ -35,7 +35,7 @@
             <td></td>
             <td></td>
             <td>
-                <a href="/productEdit/${x}">
+                <a href="/createProduct">
                     <button class="btn btn-outline-primary">+</button>
                 </a>
             </td>

@@ -35,7 +35,7 @@
             <input type="checkbox" name="isTeacher" style="margin-left: auto; margin-right:auto;"/>
             <label for="isTeacher">Учитель</label>
             <br/>
-            <button type="submit" style="margin-left: auto; margin-right: auto;">Сохранить</button>
+            <button type="submit" class="btn btn-outline-success" style="margin-left: auto; margin-right: auto;">Сохранить</button>
             <input type="hidden" value="${_csrf.token}" name="_csrf">
         </form>
     </div>

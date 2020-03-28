@@ -25,10 +25,14 @@
                 <label for="isTeacher">Учитель</label>
             </#if>
             <br/>
-            <button type="submit" style="margin-left: auto; margin-right: auto;">Сохранить</button>
+            <button type="submit" class="btn btn-outline-success" style="margin-left: auto; margin-right: auto;">Сохранить</button>
             <input type="hidden" value="${p.id}" name="UserId">
             <input type="hidden" value="${_csrf.token}" name="_csrf">
 
+        </form>
+        <form action="/deleteUser/${p.id}" method="post">
+            <button type="submit" class="btn btn-outline-danger" style="margin-left: auto; margin-right: auto; margin-top: 1%;">Удалить</button>
+            <input type="hidden" value="${_csrf.token}" name="_csrf">
         </form>
     </div>
 </@pages.page>

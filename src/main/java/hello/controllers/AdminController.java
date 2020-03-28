@@ -71,6 +71,13 @@ public class AdminController {
         return "redirect:/pupils";
     }
 
+    @PostMapping("/deleteUser/{id}")
+    public String deleteUser(Model model, @PathVariable int id){
+        model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        pupilReposutory.deleteById(id);
+        return "redirect:/pupils";
+    }
+
     // работа с магазином
 
     @GetMapping("/shopList")
@@ -104,8 +111,28 @@ public class AdminController {
 
     @GetMapping("/createProduct")
     public String createProduct(Model model){
-
+        model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
         return "createProduct";
+    }
+
+    @PostMapping("/createProduct")
+    public String saveNewProduct(Model model, @RequestParam String title, @RequestParam String text, @RequestParam String about, @RequestParam int cost, @RequestParam String imgSrc){
+        model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        ShopProduct p = new ShopProduct();
+        p.setTitle(title);
+        p.setText(text);
+        p.setAbout(about);
+        p.setCost(cost);
+        p.setImgSrc(imgSrc);
+        productRepository.save(p);
+        return "redirect:/shopList";
+    }
+
+    @PostMapping("/deleteProduct/{id}")
+    public String deleteProduct(Model model, @PathVariable int id){
+        model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        productRepository.deleteById(id);
+        return "redirect:/shopList";
     }
 
 }

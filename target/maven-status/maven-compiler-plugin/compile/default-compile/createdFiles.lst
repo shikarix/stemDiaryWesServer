@@ -3,6 +3,8 @@ hello\domain\ModelDomain\LessonTimes.class
 hello\repos\PupilReposutory.class
 hello\domain\ShopProduct.class
 hello\domain\Homework.class
+hello\controllers\AdminController.class
+hello\repos\MarkRepository.class
 hello\Application.class
 hello\controllers\ShopController.class
 hello\controllers\GreetingController.class
@@ -11,13 +13,13 @@ hello\repos\ProductRepository.class
 hello\repos\LessonRepository.class
 hello\domain\LessonDef.class
 hello\domain\Role.class
-hello\controllers\UserController.class
 hello\domain\Lesson.class
 hello\config\MVCConfig.class
 hello\controllers\BuyController.class
 hello\domain\Accounts.class
 hello\controllers\TimetableController.class
 hello\controllers\DatabaseControllerForAndroid.class
+hello\domain\Mark.class
 hello\repos\PurchaseRepository.class
 hello\controllers\VKController.class
 hello\domain\Post.class
