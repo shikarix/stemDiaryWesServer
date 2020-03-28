@@ -13,7 +13,7 @@
                 Изменение магазина
             </button>
         </a>
-        <a href="">
+        <a href="/timetableList">
             <button class="btn btn-outline-primary" style="font-size: 2em; width: 50vw; min-width: 280px; height: 20vh; min-height: 30px; max-height: 200px; margin: 2vw;">
                 Редактирование уроков
             </button>

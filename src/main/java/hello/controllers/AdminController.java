@@ -2,6 +2,7 @@ package hello.controllers;
 
 import hello.domain.Accounts;
 import hello.domain.ShopProduct;
+import hello.repos.LessonDefRepository;
 import hello.repos.ProductRepository;
 import hello.repos.PupilReposutory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 @Controller
 public class AdminController {
     @Autowired
@@ -17,6 +20,9 @@ public class AdminController {
 
     @Autowired
     ProductRepository productRepository;
+
+    @Autowired
+    LessonDefRepository lessonDefRepository;
 
     @GetMapping("/error")
     public String error(){
@@ -133,6 +139,29 @@ public class AdminController {
         model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
         productRepository.deleteById(id);
         return "redirect:/shopList";
+    }
+
+    //работа с уроками
+
+    @GetMapping("/timetableList")
+    public String timetableList(Model model){
+        model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        model.addAttribute("timetables", lessonDefRepository.findAll());
+        return "timetableList";
+    }
+
+    @GetMapping("/editTimetable/{id}")
+    public String editTimetable(Model model, @PathVariable int id){
+        model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        model.addAttribute("lesson", lessonDefRepository.findByLessonId(id).get(0));
+        model.addAttribute("pupils", pupilReposutory.findAll());
+        model.addAttribute("teacher", pupilReposutory.findAllById(lessonDefRepository.findByLessonId(id).get(0).getTeacherId()).get(0));
+        ArrayList<Accounts> teachers = new ArrayList<>();
+        for (Accounts p : pupilReposutory.findAll()) {
+            if (p.isThisTeacher()) teachers.add(p);
+        }
+        model.addAttribute("teachers", teachers);
+        return "editTimetable";
     }
 
 }
