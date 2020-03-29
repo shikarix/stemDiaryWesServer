@@ -1,8 +1,11 @@
 package hello.controllers;
 
 import hello.domain.Accounts;
+import hello.domain.Lesson;
+import hello.domain.LessonDef;
 import hello.domain.ShopProduct;
 import hello.repos.LessonDefRepository;
+import hello.repos.LessonRepository;
 import hello.repos.ProductRepository;
 import hello.repos.PupilReposutory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 @Controller
 public class AdminController {
@@ -23,6 +29,9 @@ public class AdminController {
 
     @Autowired
     LessonDefRepository lessonDefRepository;
+
+    @Autowired
+    LessonRepository lessonRepository;
 
     @GetMapping("/error")
     public String error(){
@@ -156,6 +165,8 @@ public class AdminController {
         model.addAttribute("lesson", lessonDefRepository.findByLessonId(id).get(0));
         model.addAttribute("pupils", pupilReposutory.findAll());
         model.addAttribute("teacher", pupilReposutory.findAllById(lessonDefRepository.findByLessonId(id).get(0).getTeacherId()).get(0));
+        GregorianCalendar date = lessonDefRepository.findByLessonId(id).get(0).getFirstTime();
+        model.addAttribute("date", date.get(Calendar.YEAR) + "-" + ((date.get(Calendar.MONTH) + 1 > 9 ? "" : "0") + (date.get(Calendar.MONTH) + 1)) + "-" + ((date.get(Calendar.DAY_OF_MONTH) > 9 ? "" : "0") + date.get(Calendar.DAY_OF_MONTH)));
         ArrayList<Accounts> teachers = new ArrayList<>();
         for (Accounts p : pupilReposutory.findAll()) {
             if (p.isThisTeacher()) teachers.add(p);
@@ -164,4 +175,78 @@ public class AdminController {
         return "editTimetable";
     }
 
+    @PostMapping("/editTimetable/{id}")
+    public String saveTimetable(Model model, @PathVariable int id, @RequestParam int teacher, @RequestParam String name, @RequestParam String date, @RequestParam String url, @RequestParam(required = false) int... check){
+        model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        for (int i = 0; i < check.length; i++) {
+            Lesson lesson = lessonRepository.findByLessonIdAndPupilId(id, check[i]).isEmpty() ? new Lesson() : lessonRepository.findByLessonIdAndPupilId(id, check[i]).get(0);
+            lesson.setLessonId(id);
+            lesson.setPupilId(check[i]);
+            lessonRepository.save(lesson);
+        }
+        LessonDef def = lessonDefRepository.findByLessonId(id).get(0);
+        def.setTeacherId(teacher);
+        def.setUrlToLessonLogo(url);
+        def.setLessonName(name);
+        System.out.println(date);
+        lessonDefRepository.save(def);
+        return "redirect:/timetableList";
+    }
+
+    @PostMapping("/deleteLesson/{id}")
+    public String deleteTimetable(Model model, @PathVariable int id){
+        ArrayList<Lesson> lessons = lessonRepository.findByLessonId(id);
+        for (Lesson l : lessons) {
+            lessonRepository.delete(l);
+        }
+        lessonDefRepository.delete(lessonDefRepository.findByLessonId(id).get(0));
+        return "redirect:/timetableList";
+    }
+
+    @GetMapping("/createTimetable")
+    public String createTimetable(Model model){
+        model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        model.addAttribute("pupils", pupilReposutory.findAll());
+        ArrayList<Accounts> teachers = new ArrayList<>();
+        for (Accounts p : pupilReposutory.findAll()) {
+            if (p.isThisTeacher()) teachers.add(p);
+        }
+        model.addAttribute("teachers", teachers);
+        return "createTimetable";
+    }
+
+    @PostMapping("/createTimetable")
+    public String saveNewTimetable(Model model, @RequestParam int teacher, @RequestParam String name, @RequestParam String date, @RequestParam String url, @RequestParam(required = false) int... check){
+        model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+
+        LessonDef def = new LessonDef();
+        def.setTeacherId(teacher);
+        def.setUrlToLessonLogo(url);
+        def.setLessonName(name);
+        def.setFirstTime(getDateFromForm(date));
+        lessonDefRepository.save(def);
+
+        for (int i = 0; i < check.length; i++) {
+            Lesson lesson = new Lesson();
+            lesson.setLessonId(def.getLessonId());
+            lesson.setPupilId(check[i]);
+            lessonRepository.save(lesson);
+        }
+
+        return "redirect:/timetableList";
+    }
+
+    public GregorianCalendar getDateFromForm(String date){
+        GregorianCalendar calendar = new GregorianCalendar();
+        String data[] = date.split("-");
+        int[] nums = new int[data.length];
+        int i = 0;
+        for (String a : data) {
+            nums[i++] = Integer.parseInt(a);
+        }
+        calendar.set(Calendar.YEAR, nums[0]);
+        calendar.set(Calendar.MONTH, (nums[1]-1));
+        calendar.set(Calendar.DAY_OF_MONTH, nums[2]);
+        return calendar;
+    }
 }
