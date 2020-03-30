@@ -18,7 +18,7 @@
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
     </form>
 
-    <div class="card-columns" style="position: relative; left: 20%; width: 75%">
+    <div class="card-columns" style="position: relative; left: max(20%, 180px); width: 75%">
         <#list products as products>
             <@productCard.product "${products.imgSrc}" "${products.title}" "${products.text}" "${products.cost}" '${products.id}' >
             </@productCard.product>

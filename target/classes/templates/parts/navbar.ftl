@@ -84,7 +84,9 @@
         div.appendChild(divProfile);
         div.appendChild(divTimetable);
         div.appendChild(divShop);
-        div.appendChild(divPanel);
+        <#if is = true>
+            div.appendChild(divPanel);
+        </#if>
         div.appendChild(formButton);
 
         document.body.prepend(div);

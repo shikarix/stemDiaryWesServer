@@ -15,8 +15,12 @@
             <br/>
             <select name="teacher">
                 <#list teachers as t>
-                    <#if t.id == teacher.id>
-                        <option value="${t.id}" selected>${t.name} ${t.surname}</option>
+                    <#if teacher??>
+                        <#if t.id == teacher.id>
+                            <option value="${t.id}" selected>${t.name} ${t.surname}</option>
+                        <#else>
+                            <option value="${t.id}">${t.name} ${t.surname}</option>
+                        </#if>
                     <#else>
                         <option value="${t.id}">${t.name} ${t.surname}</option>
                     </#if>
