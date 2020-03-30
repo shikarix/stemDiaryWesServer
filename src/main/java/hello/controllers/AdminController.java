@@ -163,15 +163,17 @@ public class AdminController {
     public String editTimetable(Model model, @PathVariable int id){
         model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
         model.addAttribute("lesson", lessonDefRepository.findByLessonId(id).get(0));
-        model.addAttribute("pupils", pupilReposutory.findAll());
-        model.addAttribute("teacher", pupilReposutory.findAllById(lessonDefRepository.findByLessonId(id).get(0).getTeacherId()).get(0));
+        model.addAttribute("teacher", pupilReposutory.findAllById(lessonDefRepository.findByLessonId(id).get(0).getTeacherId()).isEmpty() ? null : pupilReposutory.findAllById(lessonDefRepository.findByLessonId(id).get(0).getTeacherId()).get(0));
         GregorianCalendar date = lessonDefRepository.findByLessonId(id).get(0).getFirstTime();
         model.addAttribute("date", date.get(Calendar.YEAR) + "-" + ((date.get(Calendar.MONTH) + 1 > 9 ? "" : "0") + (date.get(Calendar.MONTH) + 1)) + "-" + ((date.get(Calendar.DAY_OF_MONTH) > 9 ? "" : "0") + date.get(Calendar.DAY_OF_MONTH)));
         ArrayList<Accounts> teachers = new ArrayList<>();
+        ArrayList<Accounts> pupils = new ArrayList<>();
         for (Accounts p : pupilReposutory.findAll()) {
             if (p.isThisTeacher()) teachers.add(p);
+            if (!p.isThisTeacher() && !p.isThisAdmin()) pupils.add(p);
         }
         model.addAttribute("teachers", teachers);
+        model.addAttribute("pupils", pupils);
         return "editTimetable";
     }
 
@@ -206,12 +208,14 @@ public class AdminController {
     @GetMapping("/createTimetable")
     public String createTimetable(Model model){
         model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
-        model.addAttribute("pupils", pupilReposutory.findAll());
+        ArrayList<Accounts> pupils = new ArrayList<>();
         ArrayList<Accounts> teachers = new ArrayList<>();
         for (Accounts p : pupilReposutory.findAll()) {
             if (p.isThisTeacher()) teachers.add(p);
+            if (!p.isThisTeacher() && !p.isThisAdmin()) pupils.add(p);
         }
         model.addAttribute("teachers", teachers);
+        model.addAttribute("pupils", pupils);
         return "createTimetable";
     }
 

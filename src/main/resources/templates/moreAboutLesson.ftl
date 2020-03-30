@@ -20,11 +20,16 @@
     <div class="card" style="width: 20%; margin: 1%; min-width: 155px; --height: height;">
          <div class="card-body">
              <strong> Учитель </strong> <br/>
-             <img src="${teacher.avatarUrl}" style="margin-left: auto; margin-right: auto;"/>
-             ${teacher.name} ${teacher.surname}<br/>
+             <#if teacher??>
+                <img src="${teacher.avatarUrl}" style="margin-left: auto; margin-right: auto;"/>
+                ${teacher.name} ${teacher.surname}<br/>
+             <#else>
+                Пока не назначен
+             </#if>
+
          </div>
     </div>
-    <#if isT = true>
+    <#if (isT = true) || (is = true)>
     <div class="card" style="width: 20%; margin: 1%; min-width: 155px; --height: height;">
         <div class="card-body">
             <strong> Ученики </strong> <br/>
