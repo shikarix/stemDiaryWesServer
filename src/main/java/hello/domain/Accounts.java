@@ -29,6 +29,19 @@ public class Accounts {
 
     //используется в некоторых страницах для единоразового отображения
     private int currentMark = 0;
+    private boolean isHere = false;
+
+    public boolean isHere() {
+        return isHere;
+    }
+
+    public boolean getHere(){
+        return isHere;
+    }
+
+    public void setHere(boolean here) {
+        isHere = here;
+    }
 
     public boolean isPremium() {
         return premium;

@@ -18,14 +18,47 @@
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
     </form>
 
-    <div class="card-columns" style="position: relative; left: 20%; width: 75%">
+    <script>
+         let a = function(){
+             let imgs = document.getElementsByTagName('img');
+             let maxHeight = 0;
+             for(let i = 0; i < imgs.length; i++){
+                 if(imgs[i].getAttribute('class') === 'myimg'){
+                     imgs[i].setAttribute('width', (document.body.clientWidth / 100 * 10.5) + "px");
+                     imgs[i].style.minWidth = "82px";
+                     imgs[i].style.maxWidth = "150px";
+                     imgs[i].style.paddingTop = "0px";
+                     imgs[i].style.paddingBottom = "0px";
+                     if(Number(imgs[i].parentElement.parentElement.getAttribute("startHeight")) > maxHeight){
+                        maxHeight = imgs[i].parentElement.parentElement.scrollHeight;
+                     }
+                 }
+             }
+             for(let i = 0; i < imgs.length; i++){
+                if(imgs[i].getAttribute('class') === 'myimg'){
+                    imgs[i].parentElement.parentElement.style.height = maxHeight + "px";
+                }
+             }
+         };
+         let b = function(){
+            let imgs = document.getElementsByTagName('img');
+            for(let i = 0; i < imgs.length; i++){
+                if(imgs[i].getAttribute('class') === 'myimg'){
+                    imgs[i].parentElement.parentElement.setAttribute("startHeight", imgs[i].parentElement.parentElement.scrollHeight);
+                }
+                a();
+            }
+         }
+         window.onresize = a;
+         window.onload = b;
+     </script>
+
+    <div class="card-columns" style="position: relative; left: max(20%, 180px); width: 75%">
         <#list products as products>
             <@productCard.product "${products.imgSrc}" "${products.title}" "${products.text}" "${products.cost}" '${products.id}' >
             </@productCard.product>
         <#else>
-            <div>
-                Хм... Возможно Ваши фильтры слишком строги?
-            </div>
+            Хм... Возможно Ваши фильтры слишком строги?
         </#list>
     </div>
 </@pages.page>
