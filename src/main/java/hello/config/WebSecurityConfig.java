@@ -34,6 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/timetableAndroid/{id}").permitAll();
         http.authorizeRequests().antMatchers("/getStemCoins/{teacherLogin}/{teacherPassword}/{pupilLogin}").permitAll();
         http.authorizeRequests().antMatchers("/courseGet/{login}/{password}").permitAll();
+        http.authorizeRequests().antMatchers("/getTeacherCourses/{login}/{password}").permitAll();
 
         http
                 .authorizeRequests()
