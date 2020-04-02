@@ -171,6 +171,7 @@ public class AdminController {
         model.addAttribute("teacher", pupilReposutory.findAllById(lessonDefRepository.findByLessonId(id).get(0).getTeacherId()).isEmpty() ? null : pupilReposutory.findAllById(lessonDefRepository.findByLessonId(id).get(0).getTeacherId()).get(0));
         GregorianCalendar date = lessonDefRepository.findByLessonId(id).get(0).getFirstTime();
         model.addAttribute("date", date.get(Calendar.YEAR) + "-" + ((date.get(Calendar.MONTH) + 1 > 9 ? "" : "0") + (date.get(Calendar.MONTH) + 1)) + "-" + ((date.get(Calendar.DAY_OF_MONTH) > 9 ? "" : "0") + date.get(Calendar.DAY_OF_MONTH)));
+        model.addAttribute("time", (date.get(Calendar.HOUR_OF_DAY) > 9 ? "" : "0") + date.get(Calendar.HOUR_OF_DAY) + ":" + (date.get(Calendar.MINUTE) > 9 ? "" : "0") + date.get(Calendar.MINUTE));
         ArrayList<Accounts> teachers = new ArrayList<>();
         ArrayList<Accounts> pupils = new ArrayList<>();
         for (Accounts p : pupilReposutory.findAll()) {
@@ -186,7 +187,7 @@ public class AdminController {
     }
 
     @PostMapping("/editTimetable/{id}")
-    public String saveTimetable(Model model, @PathVariable int id, @RequestParam int teacher, @RequestParam String name, @RequestParam String date, @RequestParam String url, @RequestParam(required = false) int... check) {
+    public String saveTimetable(Model model, @PathVariable int id, @RequestParam int teacher, @RequestParam String name, @RequestParam String date, @RequestParam String url, @RequestParam String time, @RequestParam(required = false) int... check) {
         model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
         ArrayList<Lesson> wasInLesson = lessonRepository.findByLessonId(id);
         for (int i = 0; i < wasInLesson.size(); i++) {
@@ -203,7 +204,10 @@ public class AdminController {
         def.setTeacherId(teacher);
         def.setUrlToLessonLogo(url);
         def.setLessonName(name);
-        System.out.println(date);
+        GregorianCalendar firstDate = getDateFromForm(date);
+        firstDate.set(Calendar.MINUTE, getTimeFromForm(time).get(Calendar.MINUTE));
+        firstDate.set(Calendar.HOUR_OF_DAY, getTimeFromForm(time).get(Calendar.HOUR_OF_DAY));
+        def.setFirstTime(firstDate);
         lessonDefRepository.save(def);
         return "redirect:/timetableList";
     }
@@ -233,14 +237,17 @@ public class AdminController {
     }
 
     @PostMapping("/createTimetable")
-    public String saveNewTimetable(Model model, @RequestParam int teacher, @RequestParam String name, @RequestParam String date, @RequestParam String url, @RequestParam(required = false) int... check) {
+    public String saveNewTimetable(Model model, @RequestParam int teacher, @RequestParam String name, @RequestParam String date, @RequestParam String url, @RequestParam String time, @RequestParam(required = false) int... check) {
         model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
 
         LessonDef def = new LessonDef();
         def.setTeacherId(teacher);
         def.setUrlToLessonLogo(url);
         def.setLessonName(name);
-        def.setFirstTime(getDateFromForm(date));
+        GregorianCalendar firstDate = getDateFromForm(date);
+        firstDate.set(Calendar.MINUTE, getTimeFromForm(time).get(Calendar.MINUTE));
+        firstDate.set(Calendar.HOUR_OF_DAY, getTimeFromForm(time).get(Calendar.HOUR_OF_DAY));
+        def.setFirstTime(firstDate);
         lessonDefRepository.save(def);
 
         if (check != null)
@@ -265,6 +272,19 @@ public class AdminController {
         calendar.set(Calendar.YEAR, nums[0]);
         calendar.set(Calendar.MONTH, (nums[1] - 1));
         calendar.set(Calendar.DAY_OF_MONTH, nums[2]);
+        return calendar;
+    }
+
+    public GregorianCalendar getTimeFromForm(String time){
+        GregorianCalendar calendar = new GregorianCalendar();
+        String data[] = time.split(":");
+        int[] nums = new int[data.length];
+        int i = 0;
+        for (String a : data) {
+            nums[i++] = Integer.parseInt(a);
+        }
+        calendar.set(Calendar.HOUR_OF_DAY, nums[0]);
+        calendar.set(Calendar.MINUTE, nums[1]);
         return calendar;
     }
 }

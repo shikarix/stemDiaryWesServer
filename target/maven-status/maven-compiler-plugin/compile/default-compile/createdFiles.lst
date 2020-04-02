@@ -26,6 +26,7 @@ hello\domain\Post.class
 hello\repos\LessonDefRepository.class
 hello\controllers\TimetableForAndroidController.class
 hello\repos\HomeworkRepository.class
+hello\controllers\AndroidResponseController.class
 hello\controllers\ChangeAvatarURLController.class
 hello\config\WebSecurityConfig.class
 hello\controllers\StemCoinsController.class
