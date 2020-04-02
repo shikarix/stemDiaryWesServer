@@ -1,6 +1,7 @@
 package hello.controllers;
 
 import hello.domain.Accounts;
+import hello.domain.Lesson;
 import hello.domain.LessonDef;
 import hello.repos.LessonDefRepository;
 import hello.repos.LessonRepository;
@@ -67,6 +68,27 @@ public class AndroidResponseController {
                 }
                 JSONObject obj = new JSONObject();
                 obj.put("lessons", array);
+                model.addAttribute("array", obj.toString());
+            }
+            else model.addAttribute("array", "Go daleko!");
+        }
+        else model.addAttribute("array", "Go daleko!");
+        return "androidArray";
+    }
+
+    @GetMapping("/getLessonStudents/{login}/{password}/{lessonName}")
+    public String getStudents(Model model, @PathVariable String login, @PathVariable String password, @PathVariable String lessonName){
+        Accounts teacher = pupilReposutory.findByLoginAndPassword(login, password).isEmpty() ? null : pupilReposutory.findByLoginAndPassword(login, password).get(0);
+        if (teacher != null){
+            if (teacher.isThisTeacher() || teacher.isThisAdmin()){
+                LessonDef def = lessonDefRepository.findByLessonName(lessonName).get(0);
+                JSONArray array = new JSONArray();
+                for (Lesson l :
+                        lessonRepository.findByLessonId(def.getLessonId())) {
+                    array.put(pupilReposutory.findAllById(l.getPupilId()).get(0).getName() + " " + pupilReposutory.findAllById(l.getPupilId()).get(0).getSurname());
+                }
+                JSONObject obj = new JSONObject();
+                obj.put("students", array);
                 model.addAttribute("array", obj.toString());
             }
             else model.addAttribute("array", "Go daleko!");
