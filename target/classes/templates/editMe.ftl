@@ -14,27 +14,27 @@
                 <#list pupils as pupils>
                     <label>Имя:</label>
                     <br>
-                    <input disabled style="border-width: 0px 0px 1px 0px; position: relative; border-color: silver; outline:none; width: 28%; background-color: white"
+                    <input disabled style="border-width: 0px 0px 1px 0px; position: relative; border-color: silver; outline:none; width: 28%; background-color: white; min-width: 150px;"
                            type="text" value="${pupils.name}" name="nickname">
                     <br>
                     <label>Фамилия:</label>
                     <br>
-                    <input disabled style="border-width: 0px 0px 1px 0px; position: relative; border-color: silver; outline:none; width: 28%; background-color: white"
+                    <input disabled style="border-width: 0px 0px 1px 0px; position: relative; border-color: silver; outline:none; width: 28%; background-color: white; min-width: 150px;"
                            type="text" value="${pupils.surname}" name="surname">
                     <br>
                     <label>Старый пароль:</label>
                     <br>
-                    <input style="border-width: 0px 0px 1px 0px; position: relative; border-color: silver; outline:none; width: 28%;"
+                    <input style="border-width: 0px 0px 1px 0px; position: relative; border-color: silver; outline:none; width: 28%; min-width: 150px;"
                            type="password" name="oldPassword">
                     <br>
                     <label>Новый пароль:</label>
                     <br>
-                    <input style="border-width: 0px 0px 1px 0px; position: relative; border-color: silver; outline:none; width: 28%;"
+                    <input style="border-width: 0px 0px 1px 0px; position: relative; border-color: silver; outline:none; width: 28%; min-width: 150px;"
                            type="password" name="newPassword">
                     <br>
                     <label>Повторите пароль:</label>
                     <br>
-                    <input style="border-width: 0px 0px 1px 0px; position: relative; border-color: silver; outline:none; width: 28%;"
+                    <input style="border-width: 0px 0px 1px 0px; position: relative; border-color: silver; outline:none; width: 28%; min-width: 150px;"
                            type="password" name="againPassword">
                     <br>
                     <input type="hidden" name="_csrf" value="${_csrf.token}">

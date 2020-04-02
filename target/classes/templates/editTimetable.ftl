@@ -30,7 +30,11 @@
             <strong style="margin: 1vh;"> Отметьте учеников </strong>
             <div style="width: 50vw; min-width: 250px; overflow-y: scroll; height: 10vh; min-height: 250px;">
                 <#list pupils as p>
-                    <input type="checkbox" name="check" value="${p.id}"></input>
+                    <#if p.here>
+                        <input type="checkbox" name="check" value="${p.id}" checked></input>
+                    <#else>
+                        <input type="checkbox" name="check" value="${p.id}"></input>
+                    </#if>
                     <label>${p.name} ${p.surname}</label>
                 </#list>
             </div>

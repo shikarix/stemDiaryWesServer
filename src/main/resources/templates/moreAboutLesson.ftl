@@ -21,7 +21,17 @@
          <div class="card-body">
              <strong> Учитель </strong> <br/>
              <#if teacher??>
-                <img src="${teacher.avatarUrl}" style="margin-left: auto; margin-right: auto;"/>
+                <img src="${teacher.avatarUrl}" style="margin-left: auto; margin-right: auto;" id="teacherImg"/>
+                <script>
+                    let a = function(){
+                        let imgT = document.getElementById('teacherImg');
+                        imgT.setAttribute('width', (document.body.clientWidth / 100 * 15) + "px");
+                        imgT.style.minWidth = "82px";
+                        imgT.style.maxWidth = "250px";
+                    }
+                    window.onresize = a;
+                    window.onload = a;
+                </script>
                 ${teacher.name} ${teacher.surname}<br/>
              <#else>
                 Пока не назначен
@@ -39,6 +49,7 @@
                         <div>Оценка <#if p.currentMark == 0>ещё не выставлена<#else>${p.currentMark}</#if></div>
                         <a href="/pupil/${now}/${id}/${p.id}"><button style="display: block; padding: 5px; margin-left: auto; margin-right: auto; border-radius: 10px; background-color: rgb(42, 202, 250); color: white; font-size 1.5em; border: none; margin-top: 2%"><strong>ОЦЕНКИ</strong></button></a>
                     </#if>
+                    <br/>
             </#list>
         </div>
     </div>
