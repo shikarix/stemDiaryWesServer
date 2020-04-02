@@ -11,6 +11,9 @@
             <label for="date">Дата первого урока</label>
             <input type="date" value="" name="date" style="border-width: 0px 0px 1px 0px; border-color: silver; outline:none; width: calc(30vw - 146px); text-align: center; min-width: 100px;">
             <br/>
+            <label for="time">Время первого урока</label>
+            <input type="time" value="" name="time" style="border-width: 0px 0px 1px 0px; border-color: silver; outline:none; width: calc(30vw - 146px); text-align: center; min-width: 100px;">
+            <br/>
             <label for="url">Url логотипа</label>
             <input type="text" value="" name="url" style="border-width: 0px 0px 1px 0px; border-color: silver; outline:none; width: calc(30vw - 91px); text-align: center; min-width: 100px;">
             <br/>

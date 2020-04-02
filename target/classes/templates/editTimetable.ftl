@@ -9,6 +9,8 @@
             <br/>
             <input type="date" value="${date}" name="date" style="border-width: 0px 0px 1px 0px; border-color: silver; outline:none; width: 20vw; text-align: center; min-width: 100px;">
             <br/>
+            <input type="time" value="${time}" name="time" style="border-width: 0px 0px 1px 0px; border-color: silver; outline:none; width: 20vw; text-align: center; min-width: 100px;">
+            <br/>
             <input type="text" value="${lesson.urlToLessonLogo}" name="url" style="border-width: 0px 0px 1px 0px; border-color: silver; outline:none; width: 20vw; text-align: center; min-width: 100px;">
             <br/>
             <strong style="margin: 1vh;"> Выберите учителя: </strong>

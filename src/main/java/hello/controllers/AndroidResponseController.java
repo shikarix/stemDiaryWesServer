@@ -13,6 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 @Controller
 public class AndroidResponseController {
     @Autowired
@@ -28,7 +33,7 @@ public class AndroidResponseController {
     public String getCourses(Model model, @PathVariable String login, @PathVariable String password){
         Accounts teacher = pupilReposutory.findByLoginAndPassword(login, password).isEmpty() ? null : pupilReposutory.findByLoginAndPassword(login, password).get(0);
         if (teacher != null){
-            if (teacher.isThisTeacher()){
+            if (teacher.isThisTeacher() || teacher.isThisAdmin()){
                 JSONObject courses = new JSONObject();
                 JSONArray array = new JSONArray();
                 for (LessonDef def :
@@ -37,6 +42,32 @@ public class AndroidResponseController {
                 }
                 courses.put("courses", array);
                 model.addAttribute("array", courses.toString());
+            }
+            else model.addAttribute("array", "Go daleko!");
+        }
+        else model.addAttribute("array", "Go daleko!");
+        return "androidArray";
+    }
+
+    @GetMapping("/getCourseLessons/{login}/{password}/{lessonName}")
+    public String getLessons(Model model, @PathVariable String login, @PathVariable String password, @PathVariable String lessonName){
+        Accounts teacher = pupilReposutory.findByLoginAndPassword(login, password).isEmpty() ? null : pupilReposutory.findByLoginAndPassword(login, password).get(0);
+        if (teacher != null){
+            if (teacher.isThisTeacher() || teacher.isThisAdmin()){
+                GregorianCalendar calendar = lessonDefRepository.findByLessonName(lessonName).get(0).getFirstTime();
+                JSONArray array = new JSONArray();
+                Date now = new Date();
+                while (calendar.getTime().before(now)){
+                    array.put((((calendar.get(Calendar.DAY_OF_MONTH) > 9 ? "" : "0") + calendar.get(Calendar.DAY_OF_MONTH)) + "." + ((calendar.get(Calendar.MONTH) > 9 ? "" : "0") + (calendar.get(Calendar.MONTH)+1)) + "." + calendar.get(Calendar.YEAR)));
+                    calendar.add(Calendar.DAY_OF_MONTH, 7);
+                }
+                for (int i = 0; i < 2; i++) {
+                    array.put((((calendar.get(Calendar.DAY_OF_MONTH) > 9 ? "" : "0") + calendar.get(Calendar.DAY_OF_MONTH)) + "." + ((calendar.get(Calendar.MONTH) > 9 ? "" : "0") + (calendar.get(Calendar.MONTH)+1)) + "." + calendar.get(Calendar.YEAR)));
+                    calendar.add(Calendar.DAY_OF_MONTH, 7);
+                }
+                JSONObject obj = new JSONObject();
+                obj.put("lessons", array);
+                model.addAttribute("array", obj.toString());
             }
             else model.addAttribute("array", "Go daleko!");
         }
