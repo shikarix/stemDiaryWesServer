@@ -12,7 +12,7 @@
                     <div class="card-text" style="margin-bottom: 10%">
                         ${text}
                     </div>
-                    <div class="card-footer" style="border-color: white; border-top: white; background-color: white">
+                    <div class="card-footer" style="border-color: var(--main); border-top: var(--main); background-color: var(--main)">
                         <a class="btn btn-outline-primary" href="/shop/${id}">${cost}$</a>
                     </div>
 

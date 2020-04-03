@@ -15,6 +15,8 @@
         }
     </style>
     <script>
+        let allDiv = document.createElement('div');
+
         let div = document.createElement("div");
         div.setAttribute("class", "mynavbar-max");
 
@@ -88,7 +90,7 @@
             div.appendChild(divPanel);
         </#if>
         div.appendChild(formButton);
-
-        document.body.prepend(div);
+        allDiv.appendChild(div);
+        document.body.prepend(allDiv);
     </script>
 </#macro>

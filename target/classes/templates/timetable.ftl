@@ -3,7 +3,7 @@
 <#import "parts/card.ftl" as card>
 <@pages.page "Расписание">
 <@navbar.navbar is></@navbar.navbar>
-<h3 style="display: block; text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.125); color: rgb(42, 202, 250); margin: 1%; text-align: center;">Ближайшие занятия:</h3>
+<h3 style="display: block; text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.125); color: rgb(42, 202, 250); padding: 1%; text-align: center; margin-bottom: 0px;">Ближайшие занятия:</h3>
 <div style=" display: flex; flex-flow: row wrap; -webkit-justify-content: center;">
     <#list dates as d>
         <div class="card" style="width: 15%; margin: 1%; min-width: 155px; --height: height;">

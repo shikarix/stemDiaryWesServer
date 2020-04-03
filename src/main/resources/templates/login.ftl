@@ -1,7 +1,10 @@
 <#import "parts/common.ftl" as pages>
 <@pages.page "Логин">
-<img src="https://sun9-8.userapi.com/c851224/v851224158/194606/pW5Vv5hvKX4.jpg" height="25%" width="25%" id="pic"
+<img src="https://sun9-8.userapi.com/c851224/v851224158/194606/pW5Vv5hvKX4.jpg" width="25%" id="pic"
      style="display: block; margin-left: auto; margin-right: auto; position: relative;">
+     <script>
+
+     </script>
 <form action="/login" method="post">
     <div>
         <label style="position:relative; left: 44%; font-family: sans-serif;"> User Name : </label>
