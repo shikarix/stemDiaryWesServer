@@ -2,11 +2,11 @@
     <div style="margin: 10px; border: 1px solid rgba(0,0,0,0.125); background-color: white;">
         <img src="${imgSrc}" style="display: block; margin: 2% auto; width: 50%; height: 50%; background-color: white;">
         <div>
-        <label class="card-text" style="background-color: white;">${text}</label>
+        <label class="card-text" style="background-color: white; padding-left: 2vw; padding-right: 2vw">${text}</label>
         </div>
 
         <div>
-        <p class="text-muted" style="background-color: white;">${date}</p>
+        <p class="text-muted" style="background-color: white; padding-left: 2vw; padding-right: 2vw">${date}</p>
         </div>
     </div>
 </#macro>
