@@ -8,7 +8,7 @@
 </#if>
 <div style="border: 2px solid rgba(0, 0, 0, 0.125); ">
 <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
-        <img id="myimg" style="padding-right: max(5%, 20px);" src="https://sun9-16.userapi.com/c851224/v851224158/194606/pW5Vv5hvKX4.jpg" alt="">
+        <img id="myimg" style="padding-right: max(5%, 20px);" src="https://psv4.userapi.com/c856216/u219919602/docs/d3/fde48fb977b2/stem_logo.png?extra=kaMMMcPbX3YsLJPE1AUD0JFPhyUis0bSpvfPVJLterY5qQdY4_qHnM3JxhvZAyRE44sqhEzqsKVwcwL2N_1_VByE8m56hie6Ksvpudl-_MDA_8JolsampplSaf3d5whjMiA9kvAdrAvx4fEfHm_LXIxqg7s" alt="">
         <script>
             let a = function(){
                 let imgT = document.getElementById('myimg');

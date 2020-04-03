@@ -5,12 +5,12 @@
 <@pages.page "Магазин">
     <@navbar.navbar is></@navbar.navbar>
     <form class="alert alert-success" style="position: fixed; left: 2%; width: 15%; min-width:160px" action="/shop" method="post">
-        <h4 style="margin-bottom: 10px">Фильтр</h4>
-        <label>Название</label>
+        <h4 style="margin-bottom: 10px" class="form-success-text">Фильтр</h4>
+        <label class="form-success-text">Название</label>
         <br>
         <@pages.myTextInput 1 90 'name'></@pages.myTextInput>
         <br>
-        <label style="margin-top: 10px">Стоимость</label>
+        <label style="margin-top: 10px" class="form-success-text">Стоимость</label>
         <br>
         <@pages.myTextInput 1 90 'cost'></@pages.myTextInput>
         <br>
@@ -53,7 +53,7 @@
          window.onload = b;
      </script>
 
-    <div class="card-columns" style="position: relative; left: max(20%, 180px); width: 75%">
+    <div class="card-columns" style="padding-left: max(20%, 180px); margin: 0;">
         <#list products as products>
             <@productCard.product "${products.imgSrc}" "${products.title}" "${products.text}" "${products.cost}" '${products.id}' >
             </@productCard.product>
