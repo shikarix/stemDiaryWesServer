@@ -6,11 +6,9 @@
     <div style="background-color: #eeeeee">
     <@navbar.navbar is></@navbar.navbar>
     <div style="width: 75%; position: relative; left: 12.5%">
-        <div class="card">
-            <#list posts as post>
-                <@card.card '${post.text}' '${post.srcToImage}' '${post.date}'></@card.card>
-            </#list>
-        </div>
+        <#list posts as post>
+            <@card.card '${post.text}' '${post.srcToImage}' '${post.date}'></@card.card>
+        </#list>
     </div>
     </div>
 
