@@ -42,7 +42,6 @@
             background-color: white;
         }
 
-
         </style>
     </head>
     <body style="background-color: var(--main)">

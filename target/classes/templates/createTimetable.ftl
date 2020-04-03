@@ -3,7 +3,15 @@
 <@pages.page "Создание урока">
 <@navbar.navbar is></@navbar.navbar>
     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
-        <img src="https://sun9-16.userapi.com/c851224/v851224158/194606/pW5Vv5hvKX4.jpg" style="width: 20vmin; height: 20vmin; width: 20vm; height: 17vm;"/>
+        <img src="https://psv4.userapi.com/c856216/u219919602/docs/d3/fde48fb977b2/stem_logo.png?extra=kaMMMcPbX3YsLJPE1AUD0JFPhyUis0bSpvfPVJLterY5qQdY4_qHnM3JxhvZAyRE44sqhEzqsKVwcwL2N_1_VByE8m56hie6Ksvpudl-_MDA_8JolsampplSaf3d5whjMiA9kvAdrAvx4fEfHm_LXIxqg7s" id="pic"/>
+        <script>
+          let a = function(){
+              let main = document.getElementById("pic");
+              main.setAttribute("width", (document.body.offsetWidth / 100 * 15));
+          }
+          window.onload = a;
+          window.onresize = a;
+        </script>
         <form action="/createTimetable" method="post">
             <label for="name">Название</label>
             <input type="text" value="" name="name" style="border-width: 0px 0px 1px 0px; border-color: silver; outline:none; width: calc(30vw - 70px); text-align: center; min-width: 100px;">
