@@ -30,6 +30,18 @@
             border-color: var(--input-border-color);
             outline: none;
         }
+        .profile-input{
+            background-color: var(--input-background);
+            border-width: 0 0 1px 0;
+            border-color: var(--input-border-color);
+            outline: none;
+            width: 28vw;
+            min-width: 150px;
+        }
+        .profile-label{
+            background-color: white;
+        }
+
 
         </style>
     </head>

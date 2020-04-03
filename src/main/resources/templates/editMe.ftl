@@ -6,9 +6,10 @@
 <#if warn != "">
     <@al.alert "alert alert-warning alert dismissible fade show" "${warn}" ></@al.alert>
 </#if>
-<div style="border: 2px solid rgba(0, 0, 0, 0.125); ">
-<div style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
-        <img id="myimg" style="padding-right: max(5%, 20px);" src="https://psv4.userapi.com/c856216/u219919602/docs/d3/fde48fb977b2/stem_logo.png?extra=kaMMMcPbX3YsLJPE1AUD0JFPhyUis0bSpvfPVJLterY5qQdY4_qHnM3JxhvZAyRE44sqhEzqsKVwcwL2N_1_VByE8m56hie6Ksvpudl-_MDA_8JolsampplSaf3d5whjMiA9kvAdrAvx4fEfHm_LXIxqg7s" alt="">
+<div>
+<div style="border: 2px solid rgba(0, 0, 0, 0.125); width: 75%; margin-left: auto; margin-right: auto;">
+<div style="display: flex; flex-direction: row; align-items: center; justify-content: center; background-color: white;">
+        <img id="myimg" style="padding-right: max(5%, 20px); background-color: white;" src="https://psv4.userapi.com/c856216/u219919602/docs/d3/fde48fb977b2/stem_logo.png?extra=kaMMMcPbX3YsLJPE1AUD0JFPhyUis0bSpvfPVJLterY5qQdY4_qHnM3JxhvZAyRE44sqhEzqsKVwcwL2N_1_VByE8m56hie6Ksvpudl-_MDA_8JolsampplSaf3d5whjMiA9kvAdrAvx4fEfHm_LXIxqg7s" alt="">
         <script>
             let a = function(){
                 let imgT = document.getElementById('myimg');
@@ -19,42 +20,43 @@
             window.onresize = a;
             window.onload = a;
         </script>
-        <form action="/profile" method="post">
-            <div>
+        <form action="/profile" method="post" style="margin-top: 30px; background-color: white;">
+            <div style="background-color: white;">
                 <#list pupils as pupils>
-                    <label>Имя:</label>
+                    <label class="profile-label">Имя:</label>
                     <br>
-                    <input disabled style="border-width: 0px 0px 1px 0px; position: relative; border-color: silver; outline:none; width: 28%; background-color: white; min-width: 150px;"
+                    <input disabled class="profile-input"
                            type="text" value="${pupils.name}" name="nickname">
                     <br>
-                    <label>Фамилия:</label>
+                    <label class="profile-label">Фамилия:</label>
                     <br>
-                    <input disabled style="border-width: 0px 0px 1px 0px; position: relative; border-color: silver; outline:none; width: 28%; background-color: white; min-width: 150px;"
+                    <input disabled class="profile-input"
                            type="text" value="${pupils.surname}" name="surname">
                     <br>
-                    <label>Старый пароль:</label>
+                    <label class="profile-label">Старый пароль:</label>
                     <br>
-                    <input style="border-width: 0px 0px 1px 0px; position: relative; border-color: silver; outline:none; width: 28%; min-width: 150px;"
+                    <input class="profile-input"
                            type="password" name="oldPassword">
                     <br>
-                    <label>Новый пароль:</label>
+                    <label class="profile-label">Новый пароль:</label>
                     <br>
-                    <input style="border-width: 0px 0px 1px 0px; position: relative; border-color: silver; outline:none; width: 28%; min-width: 150px;"
+                    <input class="profile-input"
                            type="password" name="newPassword">
                     <br>
-                    <label>Повторите пароль:</label>
+                    <label class="profile-label">Повторите пароль:</label>
                     <br>
-                    <input style="border-width: 0px 0px 1px 0px; position: relative; border-color: silver; outline:none; width: 28%; min-width: 150px;"
+                    <input class="profile-input"
                            type="password" name="againPassword">
                     <br>
                     <input type="hidden" name="_csrf" value="${_csrf.token}">
                 </#list>
             </div>
-            <div style="margin-top: 10px">
+            <div style="margin-top: 10px; margin-bottom: 30px; background-color: white;">
                 <button type="submit" class="btn btn-outline-success">Сохранить</button>
                 <button type="reset" class="btn btn-outline-warning">Отменить</button>
             </div>
         </form>
+</div>
 </div>
 </div>
 </@pages.page>
