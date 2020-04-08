@@ -53,7 +53,7 @@
          window.onload = b;
      </script>
 
-    <div class="card-columns" style="padding-left: max(20%, 180px); margin: 0;">
+    <div class="card-columns" style="padding-left: 180px; padding-left: max(20%, 180px); margin: 0;">
         <#list products as products>
             <@productCard.product "${products.imgSrc}" "${products.title}" "${products.text}" "${products.cost}" '${products.id}' >
             </@productCard.product>

@@ -13,6 +13,23 @@ public class Purchase {
 
     private Integer productId;
     private String login;
+    private int customerId;
+
+    public Integer getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Integer productId) {
+        this.productId = productId;
+    }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
+    }
 
     public Integer getId() {
         return id;

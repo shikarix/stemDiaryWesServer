@@ -1,13 +1,7 @@
 package hello.controllers;
 
-import hello.domain.Accounts;
-import hello.domain.Lesson;
-import hello.domain.LessonDef;
-import hello.domain.ShopProduct;
-import hello.repos.LessonDefRepository;
-import hello.repos.LessonRepository;
-import hello.repos.ProductRepository;
-import hello.repos.PupilReposutory;
+import hello.domain.*;
+import hello.repos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -34,6 +28,9 @@ public class AdminController {
 
     @Autowired
     LessonRepository lessonRepository;
+
+    @Autowired
+    PurchaseRepository purchaseRepository;
 
     @GetMapping("/error")
     public String error() {
@@ -286,5 +283,46 @@ public class AdminController {
         calendar.set(Calendar.HOUR_OF_DAY, nums[0]);
         calendar.set(Calendar.MINUTE, nums[1]);
         return calendar;
+    }
+
+    //работа с покупками
+    @GetMapping("/purchasesList")
+    public String purchasesList(Model model){
+        model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        ArrayList<Purchase> purchases = purchaseRepository.findAll();
+        for (Purchase p :
+                purchases) {
+            p.setLogin(pupilReposutory.findByLogin(p.getLogin()).get(0).getName() + " " + pupilReposutory.findByLogin(p.getLogin()).get(0).getSurname());
+        }
+        model.addAttribute("purs", purchases);
+        return "purchasesList";
+    }
+
+    @GetMapping("/cancelPurchase/{id}")
+    public String cancelPurchase(Model model, @PathVariable int id){
+        Purchase p = purchaseRepository.findById(id).get(0);
+        pupilReposutory.findAllById(p.getCustomerId()).get(0).setStemCoins(pupilReposutory.findAllById(p.getCustomerId()).get(0).getStemCoins() + productRepository.findAllById(p.getProductId()).get(0).getCost());
+        purchaseRepository.deleteById(id);
+        return "redirect:/purchasesList";
+    }
+
+    @GetMapping("/closePurchase/{id}")
+    public String closePurchase(Model model, @PathVariable int id){
+        purchaseRepository.deleteById(id);
+        return "redirect:/purchasesList";
+    }
+
+    //для покупателя в магазине
+    @GetMapping("/createPurchase/{id}")
+    public String createPurchase(Model model, @PathVariable int id){
+        Accounts me = pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0);
+        if (me.getStemCoins() > productRepository.findAllById(id).get(0).getCost()){
+            Purchase p = new Purchase();
+            p.setLogin(me.getLogin());
+            p.setCustomerId(me.getId());
+            p.setProductId(id);
+            purchaseRepository.save(p);
+        }
+        return "redirect:/shop";
     }
 }

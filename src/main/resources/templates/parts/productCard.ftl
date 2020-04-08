@@ -13,7 +13,7 @@
                         ${text}
                     </div>
                     <div class="card-footer" style="border-color: var(--main); border-top: var(--main); background-color: var(--main)">
-                        <button class="btn btn-outline-primary">${cost}$</button>
+                        <a href="/createPurchase/${id}"><button class="btn btn-outline-primary">${cost}$</button></a>
                     </div>
 
                 </div>

@@ -3,7 +3,15 @@
 <@pages.page "Редактирование урока">
 <@navbar.navbar is></@navbar.navbar>
     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
-        <img src="${lesson.urlToLessonLogo}" style="width: 20vmin; height: 20vmin; width: 20vm; height: 20vm;"/>
+        <img src="${lesson.urlToLessonLogo}" id="pic"/>
+        <script>
+          let a = function(){
+              let main = document.getElementById("pic");
+              main.setAttribute("width", (document.body.offsetWidth / 100 * 15));
+          }
+          window.onload = a;
+          window.onresize = a;
+        </script>
         <form action="/editTimetable/${lesson.lessonId}" method="post">
             <input type="text" value="${lesson.lessonName}" name="name" style="border-width: 0px 0px 1px 0px; border-color: silver; outline:none; width: 20vw; text-align: center; min-width: 100px;">
             <br/>

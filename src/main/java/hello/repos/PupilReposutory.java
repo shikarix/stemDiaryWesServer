@@ -12,4 +12,5 @@ public interface PupilReposutory extends CrudRepository<Accounts, Integer> {
     List<Accounts> findAllById(int id);
     ArrayList<Accounts> findAll();
     ArrayList<Accounts> findByName(String name);
+    ArrayList<Accounts> findByNameAndSurname(String name, String surname);
 }

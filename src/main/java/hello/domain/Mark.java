@@ -15,8 +15,17 @@ public class Mark {
     private int homeworkDoingMark;
     private int behaviourMark;
     private int lessonDoingMark;
+    private int lessonId;
 
     private int totalStemCoins;
+
+    public int getLessonId() {
+        return lessonId;
+    }
+
+    public void setLessonId(int lessonId) {
+        this.lessonId = lessonId;
+    }
 
     @Override
     public String toString() {

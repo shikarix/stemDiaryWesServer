@@ -46,6 +46,9 @@ public class VKController {
 
                     }
                 }
+            else{
+                newPost.setSrcToImage("https://sun9-42.userapi.com/c840639/v840639776/6f0b8/_yfExCc5uf8.jpg");
+            }
             char[] chars = text.toCharArray();
             for (int i = 0; i < chars.length; i++) {
                 if (chars[i] > 'я') {
@@ -83,8 +86,6 @@ public class VKController {
 
         }
         model.addAttribute("posts", posts);
-
-//        model.addAttribute("color", colors[new Random().nextInt(colors.length)]);
 
         return "news";
     }
