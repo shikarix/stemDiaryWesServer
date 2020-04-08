@@ -26,10 +26,19 @@ public class Accounts {
     boolean isAdmin = false;
 
     private String avatarUrl;
+    private int colorTheme = 0;
 
     //используется в некоторых страницах для единоразового отображения
     private int currentMark = 0;
     private boolean isHere = false;
+
+    public int getColorTheme() {
+        return colorTheme;
+    }
+
+    public void setColorTheme(int colorTheme) {
+        this.colorTheme = colorTheme;
+    }
 
     public boolean isHere() {
         return isHere;

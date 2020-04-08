@@ -2,7 +2,7 @@
 <#import "parts/navbar.ftl" as navbar>
 
 <@pages.page "Изменение оценки">
-    <@navbar.navbar is></@navbar.navbar>
+    <@navbar.navbar is color></@navbar.navbar>
     <div style="text-align: center;"><h4><strong>Изменение оценки</strong><h4></div>
     <form action="/pupil/${now}/${lessonId}/${pupil.id}" method="post" style="display:flex; justify-content: center; flex-wrap: wrap">
         <label>Имя ученика</label>

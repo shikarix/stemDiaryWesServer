@@ -1,7 +1,7 @@
 <#import "parts/common.ftl" as pages>
 <#import "parts/navbar.ftl" as navbar>
 <@pages.page "Панель Администратора">
-<@navbar.navbar is></@navbar.navbar>
+<@navbar.navbar is color></@navbar.navbar>
     <div style="display: flex; flex-flow: column wrap; align-items: center;">
         <a href="/pupils">
             <button class="btn btn-outline-primary" style="font-size: 2em; width: 50vw; min-width: 280px; height: 15vh; min-height: 30px; max-height: 200px; margin: 2vw;">

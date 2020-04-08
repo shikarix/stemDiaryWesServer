@@ -2,7 +2,7 @@
 <#import "parts/navbar.ftl" as navbar>
 
 <@pages.page "Покупки">
-<@navbar.navbar is> </@navbar.navbar>
+<@navbar.navbar is color> </@navbar.navbar>
     <#assign x = 0>
     <table class="table table-striped table-hover">
         <thead>

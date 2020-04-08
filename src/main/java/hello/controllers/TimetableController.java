@@ -31,6 +31,7 @@ public class TimetableController {
     @RequestMapping(path = "/timetable")
     public String timetableList(Model model) {
         model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        model.addAttribute("color", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).getColorTheme());
         Accounts pupil = pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0);
 
         ArrayList<Lesson> lessons;
@@ -110,6 +111,7 @@ public class TimetableController {
         GregorianCalendar lessonDate = new GregorianCalendar(date[2], date[1], date[0], date[3], date[4]);
 
         model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        model.addAttribute("color", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).getColorTheme());
         model.addAttribute("isT", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisTeacher());
 
         model.addAttribute("name", lessonDefRepository.findByLessonId(id).get(0).getLessonName());
@@ -151,6 +153,7 @@ public class TimetableController {
         int[] date = convertDate(dateLesson);
         GregorianCalendar lessonDate = new GregorianCalendar(date[2], date[1], date[0], date[3], date[4]);
         model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        model.addAttribute("color", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).getColorTheme());
         model.addAttribute("isT", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisTeacher());
         if (!pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisTeacher())
             return "redirect:/profile";
@@ -178,6 +181,7 @@ public class TimetableController {
     @GetMapping("/addlesson")
     public String addLesson(Model model) {
         model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        model.addAttribute("color", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).getColorTheme());
         ArrayList<String> teachers = new ArrayList<>();
         ArrayList<Accounts> all = pupilReposutory.findAll();
         for (int i = 0; i < all.size(); i++) {
@@ -192,6 +196,7 @@ public class TimetableController {
     @PostMapping("/addlesson")
     public String saveLesson(Model model, @RequestParam String name, @RequestParam String date, @RequestParam String url, @RequestParam String teacher) {
         model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        model.addAttribute("color", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).getColorTheme());
         int[] dateConvert = convertDateFromSaveLesson(date);
         GregorianCalendar lessonDate = new GregorianCalendar(dateConvert[2], dateConvert[1], dateConvert[0], dateConvert[3], dateConvert[4]);
 
@@ -210,7 +215,7 @@ public class TimetableController {
     @GetMapping("/pupil/{date}/{lessonId}/{pupilId}")
     public String editMark(Model model, @PathVariable String date, @PathVariable int lessonId, @PathVariable int pupilId) {
         model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
-
+        model.addAttribute("color", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).getColorTheme());
         int[] dateConvert = convertDate(date);
         GregorianCalendar lessonDate = new GregorianCalendar(dateConvert[2], dateConvert[1], dateConvert[0], dateConvert[3], dateConvert[4]);
         String now = lessonDate.get(Calendar.DAY_OF_MONTH) + "T" + lessonDate.get(Calendar.MONTH) + "T" + lessonDate.get(Calendar.YEAR) + "T" + lessonDate.get(Calendar.HOUR_OF_DAY) + "T" + lessonDate.get(Calendar.MINUTE);

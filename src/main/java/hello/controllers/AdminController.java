@@ -45,12 +45,14 @@ public class AdminController {
     @GetMapping("/adminPanel")
     public String adminPanel(Model model) {
         model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        model.addAttribute("color", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).getColorTheme());
         return "adminPanel";
     }
 
     @GetMapping("/pupils")
     public String userList(Model model) {
         model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        model.addAttribute("color", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).getColorTheme());
         model.addAttribute("pupils", pupilReposutory.findAll());
         return "userList";
     }
@@ -67,6 +69,7 @@ public class AdminController {
     @PostMapping("/pupils")
     public String userSave(@RequestParam("UserId") Accounts pupil, @RequestParam(required = false, defaultValue = "false") boolean isAdmin, @RequestParam(required = false, defaultValue = "false") boolean isTeacher, @RequestParam String name, @RequestParam String surname, Model model) {
         model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        model.addAttribute("color", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).getColorTheme());
         pupil.setName(name);
         pupil.setSurname(surname);
         pupil.setTeacher(isTeacher);
@@ -78,6 +81,7 @@ public class AdminController {
     @GetMapping("/create")
     public String createUser(Model model) {
         model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        model.addAttribute("color", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).getColorTheme());
         return "createUser";
     }
 
@@ -91,6 +95,7 @@ public class AdminController {
     @PostMapping("/deleteUser/{id}")
     public String deleteUser(Model model, @PathVariable int id) {
         model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        model.addAttribute("color", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).getColorTheme());
         pupilReposutory.deleteById(id);
         return "redirect:/pupils";
     }
@@ -100,6 +105,7 @@ public class AdminController {
     @GetMapping("/shopList")
     public String shopList(Model model) {
         model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        model.addAttribute("color", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).getColorTheme());
         model.addAttribute("products", productRepository.findAll());
         return "shopList";
     }
@@ -107,6 +113,7 @@ public class AdminController {
     @GetMapping("/productEdit/{id}")
     public String productEdit(Model model, @PathVariable int id) {
         model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        model.addAttribute("color", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).getColorTheme());
         if (id == productRepository.findAll().size()) return "redirect:/createProduct";
         model.addAttribute("p", productRepository.findAllById(id).get(0));
         return "productEdit";
@@ -116,6 +123,7 @@ public class AdminController {
     public String saveProduct(Model model, @PathVariable int id, @RequestParam String title, @RequestParam String text, @RequestParam String about, @RequestParam String cost, @RequestParam String imgSrc) {
         int thisCost = Integer.parseInt(cost);
         model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        model.addAttribute("color", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).getColorTheme());
         ShopProduct product = productRepository.findAllById(id).get(0);
         product.setTitle(title);
         product.setText(text);
@@ -129,12 +137,14 @@ public class AdminController {
     @GetMapping("/createProduct")
     public String createProduct(Model model) {
         model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        model.addAttribute("color", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).getColorTheme());
         return "createProduct";
     }
 
     @PostMapping("/createProduct")
     public String saveNewProduct(Model model, @RequestParam String title, @RequestParam String text, @RequestParam String about, @RequestParam int cost, @RequestParam String imgSrc) {
         model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        model.addAttribute("color", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).getColorTheme());
         ShopProduct p = new ShopProduct();
         p.setTitle(title);
         p.setText(text);
@@ -148,6 +158,7 @@ public class AdminController {
     @PostMapping("/deleteProduct/{id}")
     public String deleteProduct(Model model, @PathVariable int id) {
         model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        model.addAttribute("color", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).getColorTheme());
         productRepository.deleteById(id);
         return "redirect:/shopList";
     }
@@ -157,6 +168,7 @@ public class AdminController {
     @GetMapping("/timetableList")
     public String timetableList(Model model) {
         model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        model.addAttribute("color", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).getColorTheme());
         model.addAttribute("timetables", lessonDefRepository.findAll());
         return "timetableList";
     }
@@ -164,6 +176,7 @@ public class AdminController {
     @GetMapping("/editTimetable/{id}")
     public String editTimetable(Model model, @PathVariable int id) {
         model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        model.addAttribute("color", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).getColorTheme());
         model.addAttribute("lesson", lessonDefRepository.findByLessonId(id).get(0));
         model.addAttribute("teacher", pupilReposutory.findAllById(lessonDefRepository.findByLessonId(id).get(0).getTeacherId()).isEmpty() ? null : pupilReposutory.findAllById(lessonDefRepository.findByLessonId(id).get(0).getTeacherId()).get(0));
         GregorianCalendar date = lessonDefRepository.findByLessonId(id).get(0).getFirstTime();
@@ -186,6 +199,7 @@ public class AdminController {
     @PostMapping("/editTimetable/{id}")
     public String saveTimetable(Model model, @PathVariable int id, @RequestParam int teacher, @RequestParam String name, @RequestParam String date, @RequestParam String url, @RequestParam String time, @RequestParam(required = false) int... check) {
         model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        model.addAttribute("color", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).getColorTheme());
         ArrayList<Lesson> wasInLesson = lessonRepository.findByLessonId(id);
         for (int i = 0; i < wasInLesson.size(); i++) {
             lessonRepository.delete(wasInLesson.get(i));
@@ -222,6 +236,7 @@ public class AdminController {
     @GetMapping("/createTimetable")
     public String createTimetable(Model model) {
         model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        model.addAttribute("color", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).getColorTheme());
         ArrayList<Accounts> pupils = new ArrayList<>();
         ArrayList<Accounts> teachers = new ArrayList<>();
         for (Accounts p : pupilReposutory.findAll()) {
@@ -236,6 +251,7 @@ public class AdminController {
     @PostMapping("/createTimetable")
     public String saveNewTimetable(Model model, @RequestParam int teacher, @RequestParam String name, @RequestParam String date, @RequestParam String url, @RequestParam String time, @RequestParam(required = false) int... check) {
         model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        model.addAttribute("color", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).getColorTheme());
 
         LessonDef def = new LessonDef();
         def.setTeacherId(teacher);
@@ -289,6 +305,7 @@ public class AdminController {
     @GetMapping("/purchasesList")
     public String purchasesList(Model model){
         model.addAttribute("is", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        model.addAttribute("color", pupilReposutory.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).getColorTheme());
         ArrayList<Purchase> purchases = purchaseRepository.findAll();
         for (Purchase p :
                 purchases) {

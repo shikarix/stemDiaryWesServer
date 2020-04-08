@@ -24,6 +24,7 @@ public class ShopController {
     @GetMapping
     public String shop(Model model) {
         model.addAttribute("is", pupilRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        model.addAttribute("color", pupilRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).getColorTheme());
         Iterable<ShopProduct> products = productRepository.findAll();
         model.addAttribute("products", products);
         return "shop";
@@ -32,6 +33,7 @@ public class ShopController {
     @PostMapping
     public String filter(@RequestParam String name, @RequestParam Integer cost, Model model) {
         model.addAttribute("is", pupilRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        model.addAttribute("color", pupilRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).getColorTheme());
         List<ShopProduct> products;
         if (!name.equals("") && cost != null) {
             products = productRepository.findByTitleContaining(name);
@@ -51,6 +53,7 @@ public class ShopController {
     @GetMapping(path = "{shopProduct}")
     public String product(@PathVariable ShopProduct shopProduct, Model model) {
         model.addAttribute("is", pupilRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        model.addAttribute("color", pupilRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).getColorTheme());
         if (shopProduct.getImgSrc().equals("")) {
             shopProduct.setImgSrc("https://vk.com/photo-113376999_457241099https://vk.com/photo-113376999_457241099");
         }

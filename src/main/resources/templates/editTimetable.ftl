@@ -1,7 +1,7 @@
 <#import "parts/common.ftl" as pages>
 <#import "parts/navbar.ftl" as navbar>
 <@pages.page "Редактирование урока">
-<@navbar.navbar is></@navbar.navbar>
+<@navbar.navbar is color></@navbar.navbar>
     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
         <img src="${lesson.urlToLessonLogo}" id="pic"/>
         <script>

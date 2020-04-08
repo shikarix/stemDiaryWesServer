@@ -25,6 +25,7 @@ public class VKController {
     @RequestMapping(path = "/news")
     public String showNews(Model model) throws Exception {
         model.addAttribute("is", pupilRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        model.addAttribute("color", pupilRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).getColorTheme());
         TransportClient transportClient = HttpTransportClient.getInstance();
         VkApiClient vk = new VkApiClient(transportClient);
 

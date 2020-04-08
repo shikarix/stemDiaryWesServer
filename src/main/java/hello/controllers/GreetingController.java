@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
@@ -67,6 +64,7 @@ public class GreetingController {
     @RequestMapping(path = "/editMe")
     public String add(Model model) {
         model.addAttribute("is", pupilRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).isThisAdmin());
+        model.addAttribute("color", pupilRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0).getColorTheme());
         Iterable<Accounts> pupils = pupilRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         model.addAttribute("pupils", pupils);
         ArrayList<Accounts> pupil = new ArrayList<>();
@@ -74,5 +72,13 @@ public class GreetingController {
         pupilRepository.save(pupil.get(0));
         if (model.asMap().get("warn") == null || model.asMap().get("warn").equals("")) model.addAttribute("warn", "");
         return "editMe";
+    }
+
+    @GetMapping("/changeTheme/{id}")
+    public String changeTheme(Model model, @PathVariable int id){
+        Accounts me = pupilRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).get(0);
+        me.setColorTheme(id);
+        pupilRepository.save(me);
+        return "redirect:/";
     }
 }
