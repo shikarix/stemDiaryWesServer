@@ -39,27 +39,27 @@
         }
     </style>
     <script>
-    let a;
+    let ab;
         <#if color == 0>
-            a = "#eeeeee";
+            ab = "#eeeeee";
         </#if>
         <#if color == 1>
-            a = "#ffbc8a";
+            ab = "#ffbc8a";
         </#if>
         <#if color == 2>
-            a = "#82deff";
+            ab = "#82deff";
         </#if>
         <#if color == 3>
-            a = "#ff99b1";
+            ab = "#ff99b1";
         </#if>
         <#if color == 4>
-            a = "#96ffb2";
+            ab = "#96ffb2";
         </#if>
         <#if color == 5>
-            a = "#e68cff";
+            ab = "#e68cff";
         </#if>
         <#if color == 6>
-            a = "#ffe278";
+            ab = "#ffe278";
         </#if>
         let allDiv = document.createElement('div');
 
@@ -68,57 +68,57 @@
 
         let divImg = document.createElement("div");
         divImg.setAttribute("class", "navbar-brand");
-        divImg.setAttribute("style", "background-color:" + a);
+        divImg.setAttribute("style", "background-color:" + ab);
         let aImg = document.createElement("a");
         aImg.setAttribute("href", "/profile");
         let img = document.createElement("img");
-        img.setAttribute("style", "background-color:" + a);
+        img.setAttribute("style", "background-color:" + ab);
         img.setAttribute("src", "https://static.tildacdn.com/tild3865-3431-4934-a462-636139616135/noroot.png");
         divImg.appendChild(aImg);
         aImg.appendChild(img);
 
         let divNews = document.createElement("div");
-        divNews.setAttribute("style", "background-color:" + a);
+        divNews.setAttribute("style", "background-color:" + ab);
         divNews.setAttribute("class", "navbar-text");
         let aNews = document.createElement("a");
-        aNews.setAttribute("style", "background-color:" + a);
+        aNews.setAttribute("style", "background-color:" + ab);
         aNews.setAttribute("href", "/news");
         aNews.innerHTML = "Новости";
         divNews.appendChild(aNews);
 
         let divProfile = document.createElement("div");
-        divProfile.setAttribute("style", "background-color:" + a);
+        divProfile.setAttribute("style", "background-color:" + ab);
         divProfile.setAttribute("class", "navbar-text");
         let aProfile = document.createElement("a");
         aProfile.setAttribute("href", "/profile");
-        aProfile.setAttribute("style", "background-color:" + a);
+        aProfile.setAttribute("style", "background-color:" + ab);
         aProfile.innerHTML = "Профиль";
         divProfile.appendChild(aProfile);
 
         let divTimetable = document.createElement("div");
         divTimetable.setAttribute("class", "navbar-text");
-        divTimetable.setAttribute("style", "background-color:" + a);
+        divTimetable.setAttribute("style", "background-color:" + ab);
         let aTimetable = document.createElement("a");
-        aTimetable.setAttribute("style", "background-color:" + a);
+        aTimetable.setAttribute("style", "background-color:" + ab);
         aTimetable.setAttribute("href", "/timetable");
         aTimetable.innerHTML = "Расписание";
         divTimetable.appendChild(aTimetable);
 
         let divShop = document.createElement("div");
         divShop.setAttribute("class", "navbar-text");
-        divShop.setAttribute("style", "background-color:" + a);
+        divShop.setAttribute("style", "background-color:" + ab);
         let aShop = document.createElement("a");
-        aShop.setAttribute("style", "background-color:" + a);
+        aShop.setAttribute("style", "background-color:" + ab);
         aShop.setAttribute("href", "/shop");
         aShop.innerHTML = "Магазин";
         divShop.appendChild(aShop);
 
         <#if is = true>
             let divPanel = document.createElement("div");
-            divPanel.setAttribute("style", "background-color:" + a);
+            divPanel.setAttribute("style", "background-color:" + ab);
             divPanel.setAttribute("class", "navbar-text");
             let aPanel = document.createElement("a");
-            aPanel.setAttribute("style", "background-color:" + a);
+            aPanel.setAttribute("style", "background-color:" + ab);
             aPanel.setAttribute("href", "/adminPanel");
             aPanel.innerHTML = "Панель администратора";
             divPanel.appendChild(aPanel);
@@ -131,7 +131,7 @@
         let button = document.createElement("button");
         button.setAttribute("type", "submit");
         button.setAttribute("class", "btn btn-outline-danger mybtn");
-        button.setAttribute("style", "background-color:" + a);
+        button.setAttribute("style", "background-color:" + ab);
         button.innerHTML = "Выйти";
         let inputButton = document.createElement("input");
         inputButton.setAttribute("type", "hidden");
@@ -150,6 +150,7 @@
         </#if>
         div.appendChild(formButton);
         allDiv.appendChild(div);
+        allDiv.setAttribute("style", "background-color: " + ab);
         document.body.prepend(allDiv);
     </script>
 </#macro>

@@ -1,7 +1,7 @@
 <#import "parts/common.ftl" as pages>
 <#import "parts/navbar.ftl" as navbar>
 <@pages.page "Профиль">
-<@navbar.navbar is></@navbar.navbar>
+<@navbar.navbar is color></@navbar.navbar>
 <div style="text-align: center;"><h4><strong>${name}</strong><h4></div>
 <form action="/homework/${date}/${lesson}" method="post" style="display:flex; justify-content: center; flex-wrap: wrap">
     <textarea name="homework" style="outline: none; resize: none; width: 50vw; height: 20vh; min-width: 205px; background-color: white;">

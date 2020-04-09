@@ -2,7 +2,7 @@
 <#import "parts/navbar.ftl" as navbar>
 <#import "parts/card.ftl" as card>
 <@pages.page "Расписание">
-<@navbar.navbar is></@navbar.navbar>
+<@navbar.navbar is color></@navbar.navbar>
 <h3 style="display: block; padding: 1%; text-align: center; margin-bottom: 0px;">Ближайшие занятия:</h3>
 <div style=" display: flex; flex-flow: row wrap; -webkit-justify-content: center;">
     <#list dates as d>

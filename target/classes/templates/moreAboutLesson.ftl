@@ -1,7 +1,7 @@
 <#import "parts/common.ftl" as pages>
 <#import "parts/navbar.ftl" as navbar>
 <@pages.page "${name}">
-<@navbar.navbar is></@navbar.navbar>
+<@navbar.navbar is color></@navbar.navbar>
 <div style="text-align: center;"><h4><strong>${name}</strong><h4></div>
 <div style=" display: flex; flex-flow: row wrap; -webkit-justify-content: center; text-align: center;">
 

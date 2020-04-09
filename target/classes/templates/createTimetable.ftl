@@ -1,7 +1,7 @@
 <#import "parts/common.ftl" as pages>
 <#import "parts/navbar.ftl" as navbar>
 <@pages.page "Создание урока">
-<@navbar.navbar is></@navbar.navbar>
+<@navbar.navbar is color></@navbar.navbar>
     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
         <img src="https://psv4.userapi.com/c856216/u219919602/docs/d3/fde48fb977b2/stem_logo.png?extra=kaMMMcPbX3YsLJPE1AUD0JFPhyUis0bSpvfPVJLterY5qQdY4_qHnM3JxhvZAyRE44sqhEzqsKVwcwL2N_1_VByE8m56hie6Ksvpudl-_MDA_8JolsampplSaf3d5whjMiA9kvAdrAvx4fEfHm_LXIxqg7s" id="pic"/>
         <script>

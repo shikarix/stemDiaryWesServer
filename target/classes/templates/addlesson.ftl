@@ -1,7 +1,7 @@
 <#import "parts/common.ftl" as pages>
 <#import "parts/navbar.ftl" as navbar>
 <@pages.page "Профиль">
-<@navbar.navbar is></@navbar.navbar>
+<@navbar.navbar is color></@navbar.navbar>
 <div style="text-align: center;"><h4><strong>Добавить урок</strong><h4></div>
 <form action="/addlesson" method="post" style="display:flex; justify-content: center; flex-wrap: wrap">
 
